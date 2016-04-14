@@ -1,8 +1,8 @@
 SwiftyCache
 ==============
 
-SwiftyCache is a disk-based LRU cache library that reimplements the Java library
-[DiskLruCache](https://github.com/JakeWharton/DiskLruCache) in Swift.
+SwiftyCache is a journal-based disk LRU cache library that reimplements the Java
+library [DiskLruCache](https://github.com/JakeWharton/DiskLruCache) in Swift 2.2.
 
 ## A Brief History of DiskLruCache
 [DiskLruCache](https://github.com/JakeWharton/DiskLruCache) was originally from the
@@ -52,9 +52,18 @@ the values in the snapshot.
 ## Installation
 
 ### CocoaPods
-Coming soon.
-### Carthage
-Coming soon.
+
+You can use [CocoaPods](http://cocoapods.org/) to install `SwiftyCache`by adding it
+to your `Podfile`:
+
+```ruby
+platform :ios, '8.0'
+use_frameworks!
+
+target 'MyApp' do
+	pod 'SwiftyCache', '~> 0.9.0'
+end
+```
 
 ## License
 
