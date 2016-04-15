@@ -71,7 +71,7 @@ class DiskLRUCacheTests: XCTestCase {
     }
     
     override func tearDown() {
-        try! self.cache.close()
+        try! self.cache.closeNow()
         self.cache = nil
         super.tearDown()
     }
@@ -131,7 +131,7 @@ class DiskLRUCacheTests: XCTestCase {
     }
     
     func testEmptyCache() {
-        try! cache.close();
+        try! cache.closeNow();
         assertJournalBodyEquals()
     }
     
@@ -173,11 +173,14 @@ class DiskLRUCacheTests: XCTestCase {
         
         let expectation = self.expectationWithDescription("Caught invalid key: \(invalidKey)")
         
-        self.cache.setData([data1, data1], forKey: invalidKey, errorHandler: { (error: NSError) -> () in
+        
+        self.cache.setData([data1, data1], forKey: invalidKey) { (error: NSError?) in
+            guard let error = error else {
+                XCTFail("should not be here, '\(invalidKey)' should be an invalid key")
+                return
+            }
             XCTAssertEqual(error.localizedDescription, "Invalid key: \(invalidKey)")
             expectation.fulfill()
-            }) { (Bool) -> () in
-            XCTFail("should not be here, '\(invalidKey)' should be an invalid key")
         }
         
         self.waitForExpectationsWithTimeout(0.5, handler: nil)
@@ -190,12 +193,12 @@ class DiskLRUCacheTests: XCTestCase {
     func assertSuccessOnRemoveEntryForKey(key: String, isRemoved: Bool = true) {
         let expectation = self.expectationWithDescription("entry removed for key: \(key)")
         
-        self.cache.removeEntryForKey(key, errorHandler: { (error: NSError) -> () in
-            XCTFail("should not be here, error happened when removing entry for key: \(key)")
+        self.cache.removeEntryForKey(key) { (error: NSError?, removed: Bool) in
+
+            XCTAssertNil(error, "should not be here, error happened when removing entry for key: \(key)")
             
-            }) { (removed: Bool) -> () in
-                XCTAssertEqual(removed, isRemoved)
-                expectation.fulfill()
+            XCTAssertEqual(removed, isRemoved)
+            expectation.fulfill()
         }
         
         self.waitForExpectationsWithTimeout(0.5, handler: nil)
@@ -241,12 +244,12 @@ class DiskLRUCacheTests: XCTestCase {
     func assertNilSnapshotForKey(key: String) {
         let expectation = self.expectationWithDescription("getSnapshotForKey: \(key) returned nil as expected")
         
-        self.cache.getSnapshotForKey(key, readIndex: [true, true], errorHandler: { (error: NSError) -> () in
-            XCTFail("should not be here, failed to getSnapshotForKey: \(key). Error: \(error)")
-            }) { (snapshot: CacheEntrySnapshot?) -> () in
-                
-                XCTAssertNil(snapshot)
-                expectation.fulfill()
+        self.cache.getSnapshotForKey(key, readIndex: [true, true]) { (error: NSError?, snapshot:CacheEntrySnapshot?) in
+
+            XCTAssertNil(error, "should not be here, failed to getSnapshotForKey: \(key). Error: \(error)")
+            
+            XCTAssertNil(snapshot)
+            expectation.fulfill()
         }
         self.waitForExpectationsWithTimeout(0.5, handler: nil)
     }
@@ -258,10 +261,9 @@ class DiskLRUCacheTests: XCTestCase {
     func assertSuccessOnSetDataForKey(key: String, value0: String, value1: String, cache diskCache: DiskLRUCache) {
         let expectationSetData = self.expectationWithDescription("setData:forKey \(key) succeeded as expected")
         
-        diskCache.setData([strToNSData(value0), strToNSData(value1)], forKey: key, errorHandler: { (error: NSError) -> () in
-            XCTFail("should not be here, failed to setData:forKey \(key), error: \(error)")
-            }) { () -> () in
-                expectationSetData.fulfill()
+        diskCache.setData([strToNSData(value0), strToNSData(value1)], forKey: key) { (error: NSError?) in
+            XCTAssertNil(error, "should not be here, failed to setData:forKey \(key), error: \(error)")
+            expectationSetData.fulfill()
         }
         self.waitForExpectationsWithTimeout(0.5, handler: nil)
     }
@@ -273,36 +275,35 @@ class DiskLRUCacheTests: XCTestCase {
     func assertErrorOnSetDataForKey(key: String, value0: String, value1: String, cache diskCache: DiskLRUCache) {
         let expectation = self.expectationWithDescription("setData:forKey \(key) had error as expected")
         
-        diskCache.setData([strToNSData(value0), strToNSData(value1)], forKey: key, errorHandler: { (error: NSError) -> () in
-            
-            XCTAssertEqual(error.localizedDescription, "Failed to set value for key:\(key) index:0")
+        diskCache.setData([strToNSData(value0), strToNSData(value1)], forKey: key) { (error: NSError?) in
+            XCTAssertNotNil(error)
+            XCTAssertEqual(error!.localizedDescription, "Failed to set value for key:\(key) index:0")
             expectation.fulfill()
-        }) { () -> () in
-            XCTFail("should not be here, error did not happend when calling setData:forKey \(key)")
         }
+        
         self.waitForExpectationsWithTimeout(0.5, handler: nil)
     }
 
     func assertSuccessOnSetPartialDataForKey(key: String, value: String, index: Int, cache diskCache: DiskLRUCache) {
         let expectationSetData = self.expectationWithDescription("setPartialData:forExistingKey \(key) succeeded as expected")
         
-        diskCache.setPartialData([(strToNSData(value), index)], forExistingKey: key, errorHandler: { (NSError) -> () in
-            XCTFail("should not be here, failed to setPartialData:forExistingKey \(key)")
-            }) { () -> () in
-                expectationSetData.fulfill()
+        diskCache.setPartialData([(strToNSData(value), index)], forExistingKey: key) { (error: NSError?) in
+            XCTAssertNil(error, "should not be here, failed to setPartialData:forExistingKey \(key)")
+            expectationSetData.fulfill()
         }
+        
         self.waitForExpectationsWithTimeout(0.5, handler: nil)
     }
     
     func assertErrorOnSetPartialDataForKey(key: String, value: String, index: Int, cache diskCache: DiskLRUCache) {
         let expectation = self.expectationWithDescription("setPartialData:forExistingKey \(key) had error as expected")
         
-        diskCache.setPartialData([(strToNSData(value), index)], forExistingKey: key, errorHandler: { (error: NSError) -> () in
-            XCTAssertEqual(error.localizedDescription, "Failed to set partial data for key:\(key) index:\(index)")
+        diskCache.setPartialData([(strToNSData(value), index)], forExistingKey: key) { (error: NSError?) in
+            XCTAssertNotNil(error)
+            XCTAssertEqual(error!.localizedDescription, "Failed to set partial data for key:\(key) index:\(index)")
             expectation.fulfill()
-        }) { () -> () in
-            XCTFail("should not be here, error did not happend when calling setPartialData:forExistingKey \(key)")
         }
+        
         self.waitForExpectationsWithTimeout(0.5, handler: nil)
     }
 
@@ -319,10 +320,9 @@ class DiskLRUCacheTests: XCTestCase {
     func assertSuccessOnDeleteCache() {
         let expectation = self.expectationWithDescription("cache deleted as expected")
         
-        self.cache.delete(errorHandler: { (NSError) -> () in
-            XCTFail("should not be here, failed to delete the cache")
-            }) { () -> () in
-                expectation.fulfill()
+        self.cache.delete { (error: NSError?) in
+            XCTAssertNil(error, "should not be here, failed to delete the cache")
+            expectation.fulfill()
         }
         
         self.waitForExpectationsWithTimeout(0.5, handler: nil)
@@ -334,17 +334,17 @@ class DiskLRUCacheTests: XCTestCase {
     func assertErrorOnSetPartialDataForNewKey(key: String, value: String, index: Int, cache diskCache: DiskLRUCache) {
         let expectation = self.expectationWithDescription("setPartialData:forExistingKey \(key) had error as expected")
         
-        diskCache.setPartialData([(strToNSData(value), index)], forExistingKey: key, errorHandler: { (error: NSError) -> () in
-                var indexWithoutValue = 0
-                if index == 0 {
-                    indexWithoutValue = 1
-                }
+        diskCache.setPartialData([(strToNSData(value), index)], forExistingKey: key) { (error: NSError?) in
             
-                XCTAssertEqual(error.localizedDescription, "Newly created entry didn't create value for index: \(indexWithoutValue)")
-                expectation.fulfill()
-            }) { () -> () in
-                XCTFail("should not be here, error did not happend when calling setPartialData:forExistingKey \(key)")
+            var indexWithoutValue = 0
+            if index == 0 {
+                indexWithoutValue = 1
+            }
+            XCTAssertNotNil(error)
+            XCTAssertEqual(error!.localizedDescription, "Newly created entry didn't create value for index: \(indexWithoutValue)")
+            expectation.fulfill()
         }
+        
         self.waitForExpectationsWithTimeout(0.5, handler: nil)
     }
     
@@ -352,18 +352,18 @@ class DiskLRUCacheTests: XCTestCase {
         let expectationGetData = self.expectationWithDescription("getSnapshotForKey: \(key) returned the data as expected")
         
         var ss: CacheEntrySnapshot? = nil
-        diskCache.getSnapshotForKey(key, readIndex: [true, true], errorHandler: { (error: NSError) -> () in
-            XCTFail("should not be here, failed to getSnapshotForKey: \(key)")
-            }) { (snapshot: CacheEntrySnapshot?) -> () in
-                
-                ss = snapshot
-                XCTAssertNotNil(snapshot)
-                XCTAssertEqual(snapshot!.getDataForIndex(0), self.strToNSData(value0))
-                XCTAssertEqual(snapshot!.getDataForIndex(1), self.strToNSData(value1))
-                XCTAssertEqual(snapshot!.getStringDataForIndex(0), value0)
-                XCTAssertEqual(snapshot!.getStringDataForIndex(1), value1)
-                
-                expectationGetData.fulfill()
+        
+        diskCache.getSnapshotForKey(key, readIndex: [true, true]) { (error: NSError?, snapshot: CacheEntrySnapshot?) in
+            XCTAssertNil(error)
+            
+            ss = snapshot
+            XCTAssertNotNil(snapshot)
+            XCTAssertEqual(snapshot!.getDataForIndex(0), self.strToNSData(value0))
+            XCTAssertEqual(snapshot!.getDataForIndex(1), self.strToNSData(value1))
+            XCTAssertEqual(snapshot!.getStringDataForIndex(0), value0)
+            XCTAssertEqual(snapshot!.getStringDataForIndex(1), value1)
+            
+            expectationGetData.fulfill()
         }
         self.waitForExpectationsWithTimeout(0.5, handler: nil)
         return ss
@@ -376,11 +376,12 @@ class DiskLRUCacheTests: XCTestCase {
     func assertSuccessOnCloseCache(diskCache: DiskLRUCache) {
         XCTAssertFalse(diskCache.isClosed())
         let expectationClose = self.expectationWithDescription("cache closed")
-        diskCache.close(errorHandler: { (NSError) -> () in
-            XCTFail("should not be here, failed to close")
-            }) { () -> () in
-                expectationClose.fulfill()
+        
+        diskCache.close { (error: NSError?) in
+            XCTAssertNil(error)
+            expectationClose.fulfill()
         }
+        
         self.waitForExpectationsWithTimeout(0.5, handler: nil)
         
         XCTAssertTrue(diskCache.isClosed())

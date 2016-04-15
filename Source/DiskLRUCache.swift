@@ -118,14 +118,16 @@ public class DiskLRUCache {
     /**
      Writes values for all fields of a cache entry with a key specified. It will create the key and an entry of the values if the key does not exists in the cache before.
      
-     - parameter data:                           An array of values for all field of an entry, and its length must be equal to the value count of a cache entry.
-     - parameter key:                            The key of the entry to write.
-     - parameter shouldRunHandlersInMainQueue:   If true then the errorHandler and the completionHandler will be invoked in the main queue, otherwise will be in the calling queue. It is true by default.
-     - parameter errorHandler:                   The error handler.
-     - parameter completionHandler:              The completion handler.
+     - parameter data:                          An array of values for all field of an entry, and its length must be equal to the value count of a cache entry.
+     - parameter key:                           The key of the entry to write.
+     - parameter shouldRunHandlerInMainQueue:   If true then the completionHandler will be invoked in the main queue, otherwise will be in the calling queue. It is true by default.
+     - parameter completionHandler:             The completion handler.
      */
-    public func setData(data: [NSData], forKey key: String, shouldRunHandlersInMainQueue: Bool = true, errorHandler: NSError -> (), completionHandler: () -> ()) {
-        self.performBlock(completionHandler: completionHandler, errorHandler: errorHandler, shouldRunHandlersInMainQueue: shouldRunHandlersInMainQueue) { () -> () in
+    public func setData(data: [NSData], forKey key: String,
+                        shouldRunHandlerInMainQueue: Bool = true,
+                        completionHandler: ((NSError?) -> ())? = nil) {
+        self.performBlockWithoutReturnValue(completionHandler: completionHandler,
+                                            shouldRunHandlerInMainQueue: shouldRunHandlerInMainQueue) {
             try self.syncSetDataForKey(key, data: data)
         }
     }
@@ -133,31 +135,34 @@ public class DiskLRUCache {
     /**
      Writes values (maybe not all fields) on an exsiting cache entry with a key specified.
      
-     - parameter data:                           An array of tuples (new data, value field index), and its length must not be greater than the value count of a cache entry.
-     - parameter key:                            The existing key of the entry to write.
-     - parameter readIndex:                      A boolean array of the same length with the value count of each cache entry, to indicate if a value in the corresponding index should be read into the snapshot or not.
-     - parameter shouldRunHandlersInMainQueue:   If true then the errorHandler and the completionHandler will be invoked in the main queue, otherwise will be in the calling queue. It is true by default.
-     - parameter errorHandler:                   The error handler.
-     - parameter completionHandler:              The completion handler.
+     - parameter data:                          An array of tuples (new data, value field index), and its length must not be greater than the value count of a cache entry.
+     - parameter key:                           The existing key of the entry to write.
+     - parameter readIndex:                     A boolean array of the same length with the value count of each cache entry, to indicate if a value in the corresponding index should be read into the snapshot or not.
+     - parameter shouldRunHandlerInMainQueue:   If true then the completionHandler will be invoked in the main queue, otherwise will be in the calling queue. It is true by default.
+     - parameter completionHandler:             The completion handler.
      */
-    public func setPartialData(data: [(NSData, Int)], forExistingKey key: String, shouldRunHandlersInMainQueue: Bool = true, errorHandler: NSError -> (), completionHandler: () -> ()) {
-        self.performBlock(completionHandler: completionHandler, errorHandler: errorHandler, shouldRunHandlersInMainQueue: shouldRunHandlersInMainQueue) { () -> () in
-            try self.syncSetPartialData(data, forExistingKey: key)
+    public func setPartialData(data: [(NSData, Int)], forExistingKey key: String, shouldRunHandlerInMainQueue: Bool = true, completionHandler: ((NSError?) -> ())? = nil) {
+        self.performBlockWithoutReturnValue(
+            completionHandler: completionHandler,
+            shouldRunHandlerInMainQueue: shouldRunHandlerInMainQueue) {
+                try self.syncSetPartialData(data, forExistingKey: key)
         }
+        
     }
     
     /**
      Gets a cache entry snapshot for a key specified.
      
-     - parameter key:                            The key of the entry to read.
-     - parameter readIndex:                      A boolean array of the same length with the value count of each cache entry, to indicate if a value in the corresponding index should be read into the snapshot or not.
-     - parameter shouldRunHandlersInMainQueue:   If true then the errorHandler and the completionHandler will be invoked in the main queue, otherwise will be in the calling queue. It is true by default.
-     - parameter errorHandler:                   The error handler.
-     - parameter completionHandler:              The completion handler. The argument will be the CacheEntrySnapshot if the key specified exists in the cache, or will be nil.
+     - parameter key:                           The key of the entry to read.
+     - parameter readIndex:                     A boolean array of the same length with the value count of each cache entry, to indicate if a value in the corresponding index should be read into the snapshot or not.
+     - parameter shouldRunHandlerInMainQueue:   If true then the completionHandler will be invoked in the main queue, otherwise will be in the calling queue. It is true by default.
+     - parameter completionHandler:             The completion handler. The CacheEntrySnapshot? argument will be nil if the key does not exist in the cache.
      */
-    public func getSnapshotForKey(key: String, readIndex: [Bool], shouldRunHandlersInMainQueue: Bool = true, errorHandler: NSError -> (), completionHandler: CacheEntrySnapshot? -> ()) {
-        
-        self.performBlock(completionHandler: completionHandler, errorHandler: errorHandler, shouldRunHandlersInMainQueue: shouldRunHandlersInMainQueue) { () -> CacheEntrySnapshot? in
+    public func getSnapshotForKey(key: String, readIndex: [Bool], shouldRunHandlerInMainQueue: Bool = true, completionHandler: (NSError?,CacheEntrySnapshot?) -> ()) {
+        self.performBlock(
+            completionHandler: completionHandler,
+            errorResultBlock: {return nil},
+            shouldRunHandlerInMainQueue: shouldRunHandlerInMainQueue) {
             return try self.syncGetSnapshotForKey(key, readIndex: readIndex)
         }
     }
@@ -165,70 +170,52 @@ public class DiskLRUCache {
     /**
      Removes a cache entry for a key specified.
      
-     - parameter key:                            The key of the entry to remove.
-     - parameter shouldRunHandlersInMainQueue:   If true then the errorHandler and the completionHandler will be invoked in the main queue, otherwise will be in the calling queue. It is true by default.
-     - parameter errorHandler:                   The error handler.
-     - parameter completionHandler:              The completion handler. The argument will be true if the entry was removed, or false if no entry was found for the key specified.
+     - parameter key:                           The key of the entry to remove.
+     - parameter shouldRunHandlerInMainQueue:   If true then the completionHandler will be invoked in the main queue, otherwise will be in the calling queue. It is true by default.
+     - parameter completionHandler:             The completion handler. The Bool argument will be true if the entry was removed, or false if no entry was found for the key specified.
      */
-    public func removeEntryForKey(key: String, shouldRunHandlersInMainQueue: Bool = true, errorHandler: NSError -> (), completionHandler: Bool -> ()) {
-        
-        self.performBlock(completionHandler: completionHandler, errorHandler: errorHandler, shouldRunHandlersInMainQueue: shouldRunHandlersInMainQueue) { () -> Bool in
-            return try self.syncRemoveEntryForKey(key)
+    public func removeEntryForKey(key: String, shouldRunHandlerInMainQueue: Bool = true, completionHandler: ((NSError?, Bool) -> ())? = nil) {
+        self.performBlock(completionHandler: {
+            (error, result) in
+                if let completionHandler = completionHandler {
+                    completionHandler(error, result)
+                } else {
+                    if let error = error {
+                        NSLog("Ignored DiskLRUCache.removeEntryForKey error: \(error)")
+                    }
+                }
+            }, errorResultBlock: {return false},
+               shouldRunHandlerInMainQueue: shouldRunHandlerInMainQueue) {
+                () -> (Bool) in
+                return try self.syncRemoveEntryForKey(key)
         }
     }
     
     /**
      Closes the cache asynchronously.
      
-     - parameter shouldRunHandlersInMainQueue:   If true then the errorHandler and the completionHandler will be invoked in the main queue, otherwise will be in the calling queue. It is true by default.
-     - parameter errorHandler:                   The error handler.
-     - parameter completionHandler:              The completion handler.
+     - parameter shouldRunHandlerInMainQueue:   If true then the completionHandler will be invoked in the main queue, otherwise will be in the calling queue. It is true by default.
+     - parameter completionHandler:             The completion handler.
      */
-    public func close(shouldRunHandlersInMainQueue shouldRunHandlersInMainQueue: Bool = true, errorHandler: (NSError) -> (), completionHandler: () -> ()) {
-        self.performBlock(completionHandler: completionHandler, errorHandler: errorHandler, shouldRunHandlersInMainQueue: shouldRunHandlersInMainQueue) { () -> () in
-            try self.syncClose()
-        }
-    }
-    
-    /**
-     Closes the cache synchronously.
-     
-     - throws: error if it failed to close the cache or any other unhandled error, e.g. an IO error happened when the cache was pruning old entries in the background.
-     */
-    public func close() throws {
-        NSLog("[close] cache dir: \(self.cacheDir)")
-        
-        var exception: NSError?
-        dispatch_sync(cacheSerialQueue) {
-            if let error = self.lastAsyncError {
-                NSLog("found error from last async operation: \(error)")
-                self.lastAsyncError = nil
-                
-                exception = error
-            } else {
-                do {
-                    try self.syncClose()
-                } catch let error as NSError {
-                    exception = error
-                }
-            }
-        }
-        
-        if let error = exception {
-            throw error
+    public func close(shouldRunHandlerInMainQueue shouldRunHandlerInMainQueue: Bool = true, completionHandler: ((NSError?) -> ())? = nil) {
+        self.performBlockWithoutReturnValue(
+            completionHandler: completionHandler,
+            shouldRunHandlerInMainQueue: shouldRunHandlerInMainQueue) {
+                try self.syncClose()
         }
     }
     
     /**
      Closes the cache and deletes all of its stored values. This will delete all files in the cache directory including files that weren't created by the cache.
      
-     - parameter shouldRunHandlersInMainQueue:   If true then the errorHandler and the completionHandler will be invoked in the main queue, otherwise will be in the calling queue. It is true by default.
-     - parameter errorHandler:                   The error handler.
-     - parameter completionHandler:              The completion handler.
+     - parameter shouldRunHandlerInMainQueue:   If true then the completionHandler will be invoked in the main queue, otherwise will be in the calling queue. It is true by default.
+     - parameter completionHandler:             The completion handler.
      */
-    public func delete(shouldRunHandlersInMainQueue shouldRunHandlersInMainQueue: Bool = true, errorHandler: NSError -> (), completionHandler: () -> ()) {
-        self.performBlock(completionHandler: completionHandler, errorHandler: errorHandler, shouldRunHandlersInMainQueue: shouldRunHandlersInMainQueue) { () -> () in
-            try self.syncDelete()
+    public func delete(shouldRunHandlerInMainQueue shouldRunHandlerInMainQueue: Bool = true, completionHandler: ((NSError?) -> ())? = nil) {
+        self.performBlockWithoutReturnValue(
+            completionHandler: completionHandler,
+            shouldRunHandlerInMainQueue: shouldRunHandlerInMainQueue) {
+                try self.syncDelete()
         }
     }
     
@@ -253,10 +240,39 @@ public class DiskLRUCache {
         } else {
             NSLog("[deinit] closing DiskLRUCache in \(self.cacheDir)")
             do {
-                try self.close()
+                try self.closeNow()
             } catch let error as NSError {
                 NSLog("[deinit] error when closing the cache: \(error)")
             }
+        }
+    }
+    
+    /**
+     Closes the cache synchronously.
+     
+     - throws: error if it failed to close the cache or any other unhandled error, e.g. an IO error happened when the cache was pruning old entries in the background.
+     */
+    internal func closeNow() throws {
+        NSLog("[close] cache dir: \(self.cacheDir)")
+        
+        var exception: NSError?
+        dispatch_sync(cacheSerialQueue) {
+            if let error = self.lastAsyncError {
+                NSLog("found error from last async operation: \(error)")
+                self.lastAsyncError = nil
+                
+                exception = error
+            } else {
+                do {
+                    try self.syncClose()
+                } catch let error as NSError {
+                    exception = error
+                }
+            }
+        }
+        
+        if let error = exception {
+            throw error
         }
     }
     
@@ -705,15 +721,15 @@ public class DiskLRUCache {
     private func asyncCleanup() {
         assert(self.lastAsyncError == nil)
         
-        self.performBlock(completionHandler: { () -> () in
-            }, errorHandler: { (error: NSError) -> () in
+        self.performBlockWithoutReturnValue(completionHandler: { (error: NSError?) in
+            if let error = error {
                 dispatch_sync(self.cacheSerialQueue) {
                     NSLog("Error happended when performing async cleanup: \(error)")
                     self.lastAsyncError = error
                 }
-                
-            }, shouldRunHandlersInMainQueue: false) { () -> () in
-                    try self.syncCleanup()
+            }
+            }, shouldRunHandlerInMainQueue: false) { 
+                try self.syncCleanup()
         }
     }
     
@@ -746,38 +762,60 @@ public class DiskLRUCache {
         }
     }
     
-    static func performErrorCallback(errorCallback: (NSError) -> (), forError error: NSError, inMainQueue: Bool) {
+    static func performCompletionHandler<T>(completionHandler: (NSError?, T) -> (), errorResultBlock: () -> T, forError error: NSError, inMainQueue: Bool) {
         if inMainQueue {
             dispatch_async(dispatch_get_main_queue()) {
-                errorCallback(error)
+                completionHandler(error, errorResultBlock())
             }
         } else {
-            errorCallback(error)
+            completionHandler(error, errorResultBlock())
+        }
+    }
+
+    func performBlockWithoutReturnValue(completionHandler completionHandler: ((error: NSError?) -> ())?,
+                      shouldRunHandlerInMainQueue: Bool,
+                      block: () throws -> ()) {
+        performBlock(completionHandler: { (error, result) in
+            if let completionHandler = completionHandler {
+                completionHandler(error: error)
+            } else {
+                if let error = error {
+                    NSLog("Ignored DiskLRUCache error: \(error)")
+                }
+            }
+        }, errorResultBlock: {return false}, shouldRunHandlerInMainQueue: shouldRunHandlerInMainQueue) { () -> (Bool) in
+            try block()
+            return true
         }
     }
     
-    func performBlock<T>(completionHandler completionHandler: (T) -> (), errorHandler: (NSError) -> (),
-        shouldRunHandlersInMainQueue: Bool = true,
-        block: () throws -> (T)) {
+    func performBlock<T>(completionHandler completionHandler: (error: NSError?, result: T) -> (),
+                      errorResultBlock: () -> T,
+                      shouldRunHandlerInMainQueue: Bool = true,
+                      block: () throws -> (T)) {
+        
+        func handleError(error: NSError) {
+            DiskLRUCache.performCompletionHandler(completionHandler, errorResultBlock:errorResultBlock, forError: error, inMainQueue: shouldRunHandlerInMainQueue)
+        }
         
         dispatch_async(cacheSerialQueue) {
             if let error = self.lastAsyncError {
                 NSLog("found error from last async operation: \(error)")
                 self.lastAsyncError = nil
                 
-                DiskLRUCache.performErrorCallback(errorHandler, forError: error, inMainQueue: shouldRunHandlersInMainQueue)
+                handleError(error)
             } else {
                 let errorDomain = "io.github.swiftycache.DiskLRUCache.DiskLRUCacheError"
                 
                 do {
                     let result = try block()
                     
-                    if shouldRunHandlersInMainQueue {
+                    if shouldRunHandlerInMainQueue {
                         dispatch_async(dispatch_get_main_queue()) {
-                            completionHandler(result)
+                            completionHandler(error: nil, result: result)
                         }
                     } else {
-                        completionHandler(result)
+                        completionHandler(error: nil, result: result)
                     }
                     
                 } catch DiskLRUCacheError.BadFormat(let desc) {
@@ -785,27 +823,28 @@ public class DiskLRUCache {
                     let error = NSError(domain: errorDomain,
                                         code: code, userInfo: [NSLocalizedDescriptionKey: desc])
                     
-                    DiskLRUCache.performErrorCallback(errorHandler, forError: error, inMainQueue: shouldRunHandlersInMainQueue)
+                    handleError(error)
                     
                 } catch DiskLRUCacheError.IOException(let desc) {
                     let code = DiskLRUCacheErrorCode.ErrorCodeIOException.rawValue
                     let error = NSError(domain: errorDomain,
                                         code: code, userInfo: [NSLocalizedDescriptionKey: desc])
                     
-                    DiskLRUCache.performErrorCallback(errorHandler, forError: error, inMainQueue: shouldRunHandlersInMainQueue)
+                    handleError(error)
                     
                 } catch DiskLRUCacheError.IllegalStateException(let desc) {
                     let code = DiskLRUCacheErrorCode.ErrorCodeIllegalStateException.rawValue
                     let error = NSError(domain: errorDomain,
                                         code: code, userInfo: [NSLocalizedDescriptionKey: desc])
                     
-                    DiskLRUCache.performErrorCallback(errorHandler, forError: error, inMainQueue: shouldRunHandlersInMainQueue)
+                    handleError(error)
                     
                 } catch let error as NSError {
-                    DiskLRUCache.performErrorCallback(errorHandler, forError: error, inMainQueue: shouldRunHandlersInMainQueue)
+                    handleError(error)
                 }
             }
         }
+        
     }
     
     private func syncDelete() throws {

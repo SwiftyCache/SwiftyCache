@@ -61,7 +61,7 @@ platform :ios, '8.0'
 use_frameworks!
 
 target 'MyApp' do
-	pod 'SwiftyCache', '~> 0.9.1'
+	pod 'SwiftyCache', '~> 0.9.2'
 end
 ```
 
