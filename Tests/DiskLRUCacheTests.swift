@@ -251,29 +251,61 @@ class DiskLRUCacheTests: XCTestCase {
         self.waitForExpectationsWithTimeout(0.5, handler: nil)
     }
     
-    func assertResultOnSetDataForKey(key: String, value0: String, value1: String, result: Bool, cache diskCache: DiskLRUCache) {
-        let expectationSetData = self.expectationWithDescription("setData:forKey \(key) returned true as expected")
+    func assertSuccessOnSetDataForKey(key: String, value0: String, value1: String) {
+        assertSuccessOnSetDataForKey(key, value0: value0, value1: value1, cache: self.cache)
+    }
+    
+    func assertSuccessOnSetDataForKey(key: String, value0: String, value1: String, cache diskCache: DiskLRUCache) {
+        let expectationSetData = self.expectationWithDescription("setData:forKey \(key) succeeded as expected")
         
         diskCache.setData([strToNSData(value0), strToNSData(value1)], forKey: key, errorHandler: { (error: NSError) -> () in
             XCTFail("should not be here, failed to setData:forKey \(key), error: \(error)")
-            }) { (written: Bool) -> () in
-                XCTAssertEqual(written, result)
+            }) { () -> () in
                 expectationSetData.fulfill()
         }
         self.waitForExpectationsWithTimeout(0.5, handler: nil)
     }
     
-    func assertResultOnSetPartialDataForKey(key: String, value: String, index: Int, result: Bool, cache diskCache: DiskLRUCache) {
-        let expectationSetData = self.expectationWithDescription("setPartialData:forExistingKey \(key) returned true as expected")
+    func assertErrorOnSetDataForKey(key: String, value0: String, value1: String) {
+        assertErrorOnSetDataForKey(key, value0: value0, value1: value1, cache: self.cache)
+    }
+    
+    func assertErrorOnSetDataForKey(key: String, value0: String, value1: String, cache diskCache: DiskLRUCache) {
+        let expectation = self.expectationWithDescription("setData:forKey \(key) had error as expected")
+        
+        diskCache.setData([strToNSData(value0), strToNSData(value1)], forKey: key, errorHandler: { (error: NSError) -> () in
+            
+            XCTAssertEqual(error.localizedDescription, "Failed to set value for key:\(key) index:0")
+            expectation.fulfill()
+        }) { () -> () in
+            XCTFail("should not be here, error did not happend when calling setData:forKey \(key)")
+        }
+        self.waitForExpectationsWithTimeout(0.5, handler: nil)
+    }
+
+    func assertSuccessOnSetPartialDataForKey(key: String, value: String, index: Int, cache diskCache: DiskLRUCache) {
+        let expectationSetData = self.expectationWithDescription("setPartialData:forExistingKey \(key) succeeded as expected")
         
         diskCache.setPartialData([(strToNSData(value), index)], forExistingKey: key, errorHandler: { (NSError) -> () in
             XCTFail("should not be here, failed to setPartialData:forExistingKey \(key)")
-            }) { (written: Bool) -> () in
-                XCTAssertTrue(written == result)
+            }) { () -> () in
                 expectationSetData.fulfill()
         }
         self.waitForExpectationsWithTimeout(0.5, handler: nil)
     }
+    
+    func assertErrorOnSetPartialDataForKey(key: String, value: String, index: Int, cache diskCache: DiskLRUCache) {
+        let expectation = self.expectationWithDescription("setPartialData:forExistingKey \(key) had error as expected")
+        
+        diskCache.setPartialData([(strToNSData(value), index)], forExistingKey: key, errorHandler: { (error: NSError) -> () in
+            XCTAssertEqual(error.localizedDescription, "Failed to set partial data for key:\(key) index:\(index)")
+            expectation.fulfill()
+        }) { () -> () in
+            XCTFail("should not be here, error did not happend when calling setPartialData:forExistingKey \(key)")
+        }
+        self.waitForExpectationsWithTimeout(0.5, handler: nil)
+    }
+
     
     func assertEmptyDir(path: String) {
         let fileManager = NSFileManager.defaultManager()
@@ -299,16 +331,8 @@ class DiskLRUCacheTests: XCTestCase {
         XCTAssertTrue(self.cache.isClosed())
     }
     
-    func assertSuccessOnSetPartialDataForKey(key: String, value: String, index: Int, cache diskCache: DiskLRUCache) {
-        assertResultOnSetPartialDataForKey(key, value: value, index: index, result: true, cache: diskCache)
-    }
-    
-    func assertFalseOnSetPartialDataForKey(key: String, value: String, index: Int) {
-        assertResultOnSetPartialDataForKey(key, value: value, index: index, result: false, cache: self.cache)
-    }
-    
     func assertErrorOnSetPartialDataForNewKey(key: String, value: String, index: Int, cache diskCache: DiskLRUCache) {
-        let expectation = self.expectationWithDescription("setPartialData:forExistingKey \(key) returned false as expected")
+        let expectation = self.expectationWithDescription("setPartialData:forExistingKey \(key) had error as expected")
         
         diskCache.setPartialData([(strToNSData(value), index)], forExistingKey: key, errorHandler: { (error: NSError) -> () in
                 var indexWithoutValue = 0
@@ -318,22 +342,10 @@ class DiskLRUCacheTests: XCTestCase {
             
                 XCTAssertEqual(error.localizedDescription, "Newly created entry didn't create value for index: \(indexWithoutValue)")
                 expectation.fulfill()
-            }) { (written: Bool) -> () in
+            }) { () -> () in
                 XCTFail("should not be here, error did not happend when calling setPartialData:forExistingKey \(key)")
         }
         self.waitForExpectationsWithTimeout(0.5, handler: nil)
-    }
-    
-    func assertSuccessOnSetDataForKey(key: String, value0: String, value1: String) {
-        assertResultOnSetDataForKey(key, value0: value0, value1: value1, result:true, cache: self.cache)
-    }
-
-    func assertSuccessOnSetDataForKey(key: String, value0: String, value1: String, cache diskCache: DiskLRUCache) {
-        assertResultOnSetDataForKey(key, value0: value0, value1: value1, result:true, cache: diskCache)
-    }
-    
-    func assertFalseOnSetDataForKey(key: String, value0: String, value1: String) {
-        assertResultOnSetDataForKey(key, value0: value0, value1: value1, result:false, cache: self.cache)
     }
     
     func assertOnGetSnapshotForKey(key: String, value0: String, value1: String, cache diskCache: DiskLRUCache) -> CacheEntrySnapshot? {
@@ -440,6 +452,7 @@ class DiskLRUCacheTests: XCTestCase {
     func testSetPartialDataForKey() {
         assertSuccessOnSetDataForKey("key1", value0: "abc", value1: "de")
         assertSuccessOnSetPartialDataForKey("key1", value: "fghi", index: 1, cache: self.cache)
+        
         assertJournalBodyEquals("DIRTY key1", "CLEAN key1 3 2", "DIRTY key1", "CLEAN key1 3 4")
         
         assertSuccessOnCloseCache(self.cache)
@@ -1012,8 +1025,8 @@ class DiskLRUCacheTests: XCTestCase {
         // all public APIs should be tested after the cache dir was removed externally.
         // the method delete call is not included below, since it will also close the cache
         
-        assertFalseOnSetDataForKey("d", value0: "dd", value1: "ddd")
-        assertFalseOnSetPartialDataForKey("a", value: "a0", index: 0)
+        assertErrorOnSetDataForKey("d", value0: "dd", value1: "ddd")
+        assertErrorOnSetPartialDataForKey("a", value: "a0", index: 0, cache: self.cache)
         assertSuccessOnRemoveEntryForKey("b", isRemoved: true) // TODO: isRemoved should be false if NSStreamDelegate is added for the journalWriter.
         
         assertNilSnapshotForKey("a")

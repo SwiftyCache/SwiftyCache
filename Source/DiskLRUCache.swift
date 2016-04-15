@@ -122,11 +122,11 @@ public class DiskLRUCache {
      - parameter key:                            The key of the entry to write.
      - parameter shouldRunHandlersInMainQueue:   If true then the errorHandler and the completionHandler will be invoked in the main queue, otherwise will be in the calling queue. It is true by default.
      - parameter errorHandler:                   The error handler.
-     - parameter completionHandler:              The completion handler. The argument will be true if the values were written successfully for the key, or will be false.
+     - parameter completionHandler:              The completion handler.
      */
-    public func setData(data: [NSData], forKey key: String, shouldRunHandlersInMainQueue: Bool = true, errorHandler: NSError -> (), completionHandler: Bool -> ()) {
-        self.performBlock(completionHandler: completionHandler, errorHandler: errorHandler, shouldRunHandlersInMainQueue: shouldRunHandlersInMainQueue) { () -> Bool in
-            return try self.syncSetDataForKey(key, data: data)
+    public func setData(data: [NSData], forKey key: String, shouldRunHandlersInMainQueue: Bool = true, errorHandler: NSError -> (), completionHandler: () -> ()) {
+        self.performBlock(completionHandler: completionHandler, errorHandler: errorHandler, shouldRunHandlersInMainQueue: shouldRunHandlersInMainQueue) { () -> () in
+            try self.syncSetDataForKey(key, data: data)
         }
     }
     
@@ -138,11 +138,11 @@ public class DiskLRUCache {
      - parameter readIndex:                      A boolean array of the same length with the value count of each cache entry, to indicate if a value in the corresponding index should be read into the snapshot or not.
      - parameter shouldRunHandlersInMainQueue:   If true then the errorHandler and the completionHandler will be invoked in the main queue, otherwise will be in the calling queue. It is true by default.
      - parameter errorHandler:                   The error handler.
-     - parameter completionHandler:              The completion handler. The argument will be true if the key specified exists in the cache and data were written successfully, and it will be false if the key specified was not found in the cache.
+     - parameter completionHandler:              The completion handler.
      */
-    public func setPartialData(data: [(NSData, Int)], forExistingKey key: String, shouldRunHandlersInMainQueue: Bool = true, errorHandler: NSError -> (), completionHandler: Bool -> ()) {
-        self.performBlock(completionHandler: completionHandler, errorHandler: errorHandler, shouldRunHandlersInMainQueue: shouldRunHandlersInMainQueue) { () -> Bool in
-            return try self.syncSetPartialData(data, forExistingKey: key)
+    public func setPartialData(data: [(NSData, Int)], forExistingKey key: String, shouldRunHandlersInMainQueue: Bool = true, errorHandler: NSError -> (), completionHandler: () -> ()) {
+        self.performBlock(completionHandler: completionHandler, errorHandler: errorHandler, shouldRunHandlersInMainQueue: shouldRunHandlersInMainQueue) { () -> () in
+            try self.syncSetPartialData(data, forExistingKey: key)
         }
     }
     
@@ -547,23 +547,18 @@ public class DiskLRUCache {
         }
     }
     
-    func editKey(key: String, expectedSequenceNumber: Int64) throws -> CacheEntryEditor? {
+    func editKey(key: String) throws -> CacheEntryEditor {
         try checkNotClosed()
         try validateKey(key)
 
         var entry = self.lruEntries.get(key)
         
-        if (expectedSequenceNumber != ANY_SEQUENCE_NUMBER &&
-            (entry == nil || entry!.sequenceNumber != expectedSequenceNumber)) {
-                return nil // Snapshot is stale.
-        }
-        
         if (entry == nil) {
             entry = CacheEntry(key: key, valueCount: self.valueCount)
             self.lruEntries.updateValue(entry!, forKey: key)
-        } else if (entry!.currentEditor != nil) {
-            return nil // Another edit is in progress.
         }
+        
+        assert(entry!.currentEditor == nil)
  
         let editor = CacheEntryEditor(lruCache: self, entry: entry!)
         entry!.currentEditor = editor
@@ -573,22 +568,40 @@ public class DiskLRUCache {
         return editor
     }
     
+    
+    func syncCommitEditor(editor: CacheEntryEditor) throws {
+        if (editor.hasErrors) {
+            try self.syncAbortEditor(editor)
+        } else {
+            try self.completeEdit(editor, success: true)
+        }
+    }
+    
+    
+    func syncAbortEditor(editor: CacheEntryEditor) throws {
+        let key = editor.entry.key // the next line can remove the entry in the cache, so we get the key first before self.entry becomes a dangling pointer.
+        try self.completeEdit(editor, success: false)
+        try self.syncRemoveEntryForKey(key) // The previous entry is stale.
+    }
+
+    
     func completeEdit(editor: CacheEntryEditor, success: Bool) throws {
         let entry = editor.entry
         assert(entry.currentEditor === editor)
+        
+        let fileManager = NSFileManager.defaultManager()
 
         // If this edit is creating the entry for the first time, every index must have a value.
         if (success && !entry.readable) {
             for i in 0 ..< valueCount {
                 if (!editor.written![i]) {
-                    try editor.syncAbort()
+                    try self.syncAbortEditor(editor)
                     throw DiskLRUCacheError.IllegalStateException(desc: "Newly created entry didn't create value for index: \(i)")
                 }
                 
-                let fileManager = NSFileManager.defaultManager()
                 let dirtyFilePath = self.getDirtyFilePathForKey(entry.key, index: i)
                 if (!fileManager.fileExistsAtPath(dirtyFilePath)) {
-                    try editor.syncAbort()
+                    try self.syncAbortEditor(editor)
                     return
                 }
             }
@@ -713,9 +726,7 @@ public class DiskLRUCache {
         }
         
         for (_, entry) in self.lruEntries {
-            if (entry.currentEditor != nil) {
-                try entry.currentEditor!.syncAbort()
-            }
+            assert(entry.currentEditor == nil)
         }
         
         self.lruEntries.removeAll()
@@ -849,48 +860,37 @@ public class DiskLRUCache {
     }
     
     
-    private func syncSetDataForKey(key: String, data: [NSData]) throws -> Bool {
+    private func syncSetDataForKey(key: String, data: [NSData]) throws {
         assert(data.count == self.valueCount)
         
-        guard let editor = try self.editKey(key, expectedSequenceNumber: ANY_SEQUENCE_NUMBER) else {
-            return false
-        }
+        let editor = try self.editKey(key)
         
         var index = 0
-        var valueSetSuccessfully = false
         for dataForIndex in data {
-            valueSetSuccessfully = editor.setValue(dataForIndex, forIndex: index)
-            
-            if !valueSetSuccessfully {
-                break
+            guard editor.setValue(dataForIndex, forIndex: index) else {
+                try self.syncAbortEditor(editor)
+                throw DiskLRUCacheError.IOException(desc: "Failed to set value for key:\(key) index:\(index)")
             }
             
             index += 1
         }
         
-        try editor.syncCommit()
-        return valueSetSuccessfully
-        
+        try self.syncCommitEditor(editor)
     }
     
-    private func syncSetPartialData(data: [(NSData, Int)], forExistingKey key: String) throws -> Bool {
+    private func syncSetPartialData(data: [(NSData, Int)], forExistingKey key: String) throws {
         assert(data.count <= self.valueCount)
         
-        guard let editor = try self.editKey(key, expectedSequenceNumber: ANY_SEQUENCE_NUMBER) else {
-            return false
-        }
+        let editor = try self.editKey(key)
         
-        var valueSetSuccessfully = false
         for (value, index) in data {
-            valueSetSuccessfully = editor.setValue(value, forIndex: index)
-            
-            if !valueSetSuccessfully {
-                break
+            guard editor.setValue(value, forIndex: index) else {
+                try self.syncAbortEditor(editor)
+                throw DiskLRUCacheError.IOException(desc: "Failed to set partial data for key:\(key) index:\(index)")
             }
         }
         
-        try editor.syncCommit()
-        return valueSetSuccessfully
+        try self.syncCommitEditor(editor)
     }
     
     internal func getRedundantOperationCountInJournal() -> Int {

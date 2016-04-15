@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name        = "SwiftyCache"
-  s.version     = "0.9.0"
-  s.summary     = "SwiftyCache is a disk-based LRU cache library in Swift."
+  s.version     = "0.9.1"
+  s.summary     = "SwiftyCache is a journal-based disk LRU cache library in Swift."
   s.homepage    = "https://github.com/SwiftyCache/SwiftyCache"
   s.license     = { :type => "Apache License, Version 2.0" }
   s.authors     = { "Haoming Ma" => "brightpony@gmail.com" }

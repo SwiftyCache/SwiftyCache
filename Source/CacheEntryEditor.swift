@@ -25,7 +25,7 @@ class CacheEntryEditor {
     private unowned let lruCache: DiskLRUCache
     unowned let entry: CacheEntry
     var written: [Bool]?
-    private var hasErrors: Bool = false
+    var hasErrors: Bool = false
 
     init(lruCache: DiskLRUCache, entry: CacheEntry) {
         self.lruCache = lruCache
@@ -50,19 +50,4 @@ class CacheEntryEditor {
             return false
         }
     }
-    
-    func syncCommit() throws {
-        if (hasErrors) {
-            let key = self.entry.key // the next line can remove the entry in the cache, so we get the key first before self.entry becomes a dangling pointer.
-            try lruCache.completeEdit(self, success: false)
-            try lruCache.syncRemoveEntryForKey(key) // The previous entry is stale.
-        } else {
-            try lruCache.completeEdit(self, success: true)
-        }
-    }
-
-    func syncAbort() throws {
-        try lruCache.completeEdit(self, success: false)
-    }
-
 }
