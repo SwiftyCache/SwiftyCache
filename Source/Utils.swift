@@ -33,7 +33,6 @@ class Utils {
         }
     }
     
-    
     static func deleteFileIfExistsAtPath(filePath: String) throws {
         let fileManager = NSFileManager.defaultManager()
         if fileManager.fileExistsAtPath(filePath) {
@@ -48,15 +47,5 @@ class Utils {
         
         let fileManager = NSFileManager.defaultManager()
         try fileManager.moveItemAtPath(from, toPath: dest)
-    }    
-    
-    static func performErrorCallback(errorCallback: (NSError) -> (), forError error: NSError, inMainQueue: Bool) {
-        if inMainQueue {
-            dispatch_async(dispatch_get_main_queue()) {
-                errorCallback(error)
-            }
-        } else {
-            errorCallback(error)
-        }
     }
 }

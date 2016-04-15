@@ -196,27 +196,27 @@ public class DiskLRUCache {
      - throws: error if it failed to close the cache or any other unhandled error, e.g. an IO error happened when the cache was pruning old entries in the background.
      */
     public func close() throws {
-        if let error = self.lastAsyncError {
-            NSLog("found error from last async operation: \(error)")
-            self.lastAsyncError = nil
-            
-            throw error
-        } else {
-            var exception: NSError?
-            dispatch_sync(cacheSerialQueue) {
+        NSLog("[close] cache dir: \(self.cacheDir)")
+        
+        var exception: NSError?
+        dispatch_sync(cacheSerialQueue) {
+            if let error = self.lastAsyncError {
+                NSLog("found error from last async operation: \(error)")
+                self.lastAsyncError = nil
+                
+                exception = error
+            } else {
                 do {
                     try self.syncClose()
                 } catch let error as NSError {
                     exception = error
                 }
             }
-            
-            if let error = exception {
-                throw error
-            }
         }
         
-        NSLog("[close] cache dir: \(self.cacheDir)")
+        if let error = exception {
+            throw error
+        }
     }
     
     /**
@@ -735,17 +735,28 @@ public class DiskLRUCache {
         }
     }
     
+    static func performErrorCallback(errorCallback: (NSError) -> (), forError error: NSError, inMainQueue: Bool) {
+        if inMainQueue {
+            dispatch_async(dispatch_get_main_queue()) {
+                errorCallback(error)
+            }
+        } else {
+            errorCallback(error)
+        }
+    }
+    
     func performBlock<T>(completionHandler completionHandler: (T) -> (), errorHandler: (NSError) -> (),
         shouldRunHandlersInMainQueue: Bool = true,
         block: () throws -> (T)) {
-        if let error = self.lastAsyncError {
-            NSLog("found error from last async operation: \(error)")
-            self.lastAsyncError = nil
-            
-            Utils.performErrorCallback(errorHandler, forError: error, inMainQueue: shouldRunHandlersInMainQueue)
-        } else {
-            dispatch_async(cacheSerialQueue) {
-                let errorDomain = "DiskLRUCache.DiskLRUCacheError"
+        
+        dispatch_async(cacheSerialQueue) {
+            if let error = self.lastAsyncError {
+                NSLog("found error from last async operation: \(error)")
+                self.lastAsyncError = nil
+                
+                DiskLRUCache.performErrorCallback(errorHandler, forError: error, inMainQueue: shouldRunHandlersInMainQueue)
+            } else {
+                let errorDomain = "io.github.swiftycache.DiskLRUCache.DiskLRUCacheError"
                 
                 do {
                     let result = try block()
@@ -761,28 +772,27 @@ public class DiskLRUCache {
                 } catch DiskLRUCacheError.BadFormat(let desc) {
                     let code = DiskLRUCacheErrorCode.ErrorCodeBadFormat.rawValue
                     let error = NSError(domain: errorDomain,
-                        code: code, userInfo: [NSLocalizedDescriptionKey: desc])
+                                        code: code, userInfo: [NSLocalizedDescriptionKey: desc])
                     
-                    Utils.performErrorCallback(errorHandler, forError: error, inMainQueue: shouldRunHandlersInMainQueue)
+                    DiskLRUCache.performErrorCallback(errorHandler, forError: error, inMainQueue: shouldRunHandlersInMainQueue)
                     
                 } catch DiskLRUCacheError.IOException(let desc) {
                     let code = DiskLRUCacheErrorCode.ErrorCodeIOException.rawValue
                     let error = NSError(domain: errorDomain,
-                        code: code, userInfo: [NSLocalizedDescriptionKey: desc])
+                                        code: code, userInfo: [NSLocalizedDescriptionKey: desc])
                     
-                    Utils.performErrorCallback(errorHandler, forError: error, inMainQueue: shouldRunHandlersInMainQueue)
+                    DiskLRUCache.performErrorCallback(errorHandler, forError: error, inMainQueue: shouldRunHandlersInMainQueue)
                     
                 } catch DiskLRUCacheError.IllegalStateException(let desc) {
                     let code = DiskLRUCacheErrorCode.ErrorCodeIllegalStateException.rawValue
                     let error = NSError(domain: errorDomain,
-                        code: code, userInfo: [NSLocalizedDescriptionKey: desc])
+                                        code: code, userInfo: [NSLocalizedDescriptionKey: desc])
                     
-                    Utils.performErrorCallback(errorHandler, forError: error, inMainQueue: shouldRunHandlersInMainQueue)
+                    DiskLRUCache.performErrorCallback(errorHandler, forError: error, inMainQueue: shouldRunHandlersInMainQueue)
                     
                 } catch let error as NSError {
-                    Utils.performErrorCallback(errorHandler, forError: error, inMainQueue: shouldRunHandlersInMainQueue)
+                    DiskLRUCache.performErrorCallback(errorHandler, forError: error, inMainQueue: shouldRunHandlersInMainQueue)
                 }
-                
             }
         }
     }
