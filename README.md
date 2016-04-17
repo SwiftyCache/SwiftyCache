@@ -49,6 +49,31 @@ observe the value at the time that the reading operation is performed in the
 background dispatch queue. Updates and removals after the operation do not impact
 the values in the snapshot.
 
+## Usage
+
+```swift
+
+let cachesDirURL = NSFileManager.defaultManager().URLsForDirectory(.CachesDirectory, inDomains: .UserDomainMask)[0]
+let cacheDir = cachesDirURL.URLByAppendingPathComponent("TestCache", isDirectory: true).path!
+        
+let valueCount = 2 // each entry has two fields
+        
+let diskCache = DiskLRUCache(cacheDir: cacheDir, cacheVersion: 1, valueCount: valueCount, maxSize: 1024*1024*2)
+        
+let value0 = "Hello, world!".dataUsingEncoding(NSUTF8StringEncoding)!
+let value1 = "Hello, SwiftyCache!".dataUsingEncoding(NSUTF16StringEncoding)!
+        
+let key = "Hello"
+diskCache.setData([value0, value1], forKey: key)
+diskCache.getSnapshotForKey(key) { (error: NSError?, snapshot: CacheEntrySnapshot?) in
+    if let snapshot = snapshot {
+        NSLog(snapshot.getStringDataAtIndex(0, encoding: NSUTF8StringEncoding)!)
+        NSLog(snapshot.getStringDataAtIndex(1, encoding: NSUTF16StringEncoding)!)
+    }
+}
+
+```
+
 ## Installation
 
 ### CocoaPods
@@ -61,7 +86,7 @@ platform :ios, '8.0'
 use_frameworks!
 
 target 'MyApp' do
-	pod 'SwiftyCache', '~> 0.9.2'
+	pod 'SwiftyCache', '~> 0.9.3'
 end
 ```
 
