@@ -358,10 +358,10 @@ class DiskLRUCacheTests: XCTestCase {
             
             ss = snapshot
             XCTAssertNotNil(snapshot)
-            XCTAssertEqual(snapshot!.getDataForIndex(0), self.strToNSData(value0))
-            XCTAssertEqual(snapshot!.getDataForIndex(1), self.strToNSData(value1))
-            XCTAssertEqual(snapshot!.getStringDataForIndex(0), value0)
-            XCTAssertEqual(snapshot!.getStringDataForIndex(1), value1)
+            XCTAssertEqual(snapshot!.getDataAtIndex(0), self.strToNSData(value0))
+            XCTAssertEqual(snapshot!.getDataAtIndex(1), self.strToNSData(value1))
+            XCTAssertEqual(snapshot!.getStringDataAtIndex(0, encoding: NSUTF8StringEncoding), value0)
+            XCTAssertEqual(snapshot!.getStringDataAtIndex(1, encoding: NSUTF8StringEncoding), value1)
             
             expectationGetData.fulfill()
         }
@@ -972,8 +972,8 @@ class DiskLRUCacheTests: XCTestCase {
         assertSuccessOnSetDataForKey("c", value0: "cc", value1: "ccc") // size 5; will evict 'a'
         assertNilSnapshotForKey("a")
         
-        XCTAssertEqual(snapshotA.getStringDataForIndex(0), "aa")
-        XCTAssertEqual(snapshotA.getStringDataForIndex(1), "aaa")
+        XCTAssertEqual(snapshotA.getStringDataAtIndex(0, encoding: NSUTF8StringEncoding), "aa")
+        XCTAssertEqual(snapshotA.getStringDataAtIndex(1, encoding: NSUTF8StringEncoding), "aaa")
     }
     
     func testUsingNSOutputStreamAfterFileDeleted() {

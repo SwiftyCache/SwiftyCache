@@ -45,22 +45,23 @@ public class CacheEntrySnapshot {
      
      - parameter index: The field index.
      
-     - returns:         The value of the field, which will be nil if the specified field was not read out. See the 'readIndex' parameter of the method DiskLRUCache.getSnapshotForKey(key: String, readIndex: [Bool], ...).
+     - returns:         The value of the field, which will be nil if the specified field was not read out. See the 'readIndex' parameter of the method DiskLRUCache.getSnapshotForKey(key: String, readIndex: [Bool]?, ...).
      */
-    public func getDataForIndex(index: Int) -> NSData? {
+    public func getDataAtIndex(index: Int) -> NSData? {
         return data[index]
     }
     
     /**
-     Returns the value of the field at the specified index as a UTF-8 encoded string .
+     Returns a string representation of the value of the field at the specified index.
      
-     - parameter index: The field index.
+     - parameter index:     The field index.
+     - parameter encoding:  The string encoding used to decode the data.
      
-     - returns:         The UTF-8 encoded string value of the field, which will be nil if the specified field was not read out. See the 'readIndex' parameter of the method DiskLRUCache.getSnapshotForKey(key: String, readIndex: [Bool], ...).
+     - returns:         The string value of the field, which will be nil if the specified field was not read out. See the 'readIndex' parameter of the method DiskLRUCache.getSnapshotForKey(key: String, readIndex: [Bool]?, ...).
      */
-    public func getStringDataForIndex(index: Int) -> String? {
+    public func getStringDataAtIndex(index: Int, encoding: NSStringEncoding) -> String? {
         if let strdata = data[index] {
-            return String(data: strdata, encoding: NSUTF8StringEncoding)
+            return String(data: strdata, encoding: encoding)
         } else {
             return nil
         }

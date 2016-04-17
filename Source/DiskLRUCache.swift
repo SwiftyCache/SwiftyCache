@@ -154,16 +154,23 @@ public class DiskLRUCache {
      Gets a cache entry snapshot for a key specified.
      
      - parameter key:                           The key of the entry to read.
-     - parameter readIndex:                     A boolean array of the same length with the value count of each cache entry, to indicate if a value in the corresponding index should be read into the snapshot or not.
+     - parameter readIndex:                     A boolean array of the same length with the value count of each cache entry, to indicate if a value in the corresponding index should be read into the snapshot or not. The default value nil means to read all fields.
      - parameter shouldRunHandlerInMainQueue:   If true then the completionHandler will be invoked in the main queue, otherwise will be in the calling queue. It is true by default.
      - parameter completionHandler:             The completion handler. The CacheEntrySnapshot? argument will be nil if the key does not exist in the cache.
      */
-    public func getSnapshotForKey(key: String, readIndex: [Bool], shouldRunHandlerInMainQueue: Bool = true, completionHandler: (NSError?,CacheEntrySnapshot?) -> ()) {
+    public func getSnapshotForKey(key: String, readIndex: [Bool]? = nil, shouldRunHandlerInMainQueue: Bool = true, completionHandler: (NSError?,CacheEntrySnapshot?) -> ()) {
+        var readIndexVar: [Bool]
+        if let readIndex = readIndex {
+            readIndexVar = readIndex
+        } else {
+            readIndexVar = [Bool](count: self.valueCount, repeatedValue: true)
+        }
+        
         self.performBlock(
             completionHandler: completionHandler,
             errorResultBlock: {return nil},
             shouldRunHandlerInMainQueue: shouldRunHandlerInMainQueue) {
-            return try self.syncGetSnapshotForKey(key, readIndex: readIndex)
+            return try self.syncGetSnapshotForKey(key, readIndex: readIndexVar)
         }
     }
     
