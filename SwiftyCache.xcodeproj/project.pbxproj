@@ -7,6 +7,45 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		703932A21CC59B9300B51845 /* SwiftyCache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 703932981CC59B9300B51845 /* SwiftyCache.framework */; };
+		703932B81CC5A70C00B51845 /* CacheEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704D91EC1CBF49DD0097E38B /* CacheEntry.swift */; };
+		703932B91CC5A70C00B51845 /* StreamReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704D91ED1CBF49DD0097E38B /* StreamReader.swift */; };
+		703932BA1CC5A70C00B51845 /* DiskLRUCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704D91EE1CBF49DD0097E38B /* DiskLRUCache.swift */; };
+		703932BB1CC5A70C00B51845 /* DiskLRUCacheError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704D91EF1CBF49DD0097E38B /* DiskLRUCacheError.swift */; };
+		703932BC1CC5A70C00B51845 /* CacheEntryEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704D91F01CBF49DD0097E38B /* CacheEntryEditor.swift */; };
+		703932BD1CC5A70C00B51845 /* CacheEntrySnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704D91F11CBF49DD0097E38B /* CacheEntrySnapshot.swift */; };
+		703932BE1CC5A70C00B51845 /* LinkedDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704D91F21CBF49DD0097E38B /* LinkedDictionary.swift */; };
+		703932BF1CC5A70C00B51845 /* NSOutputStream+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704D91F31CBF49DD0097E38B /* NSOutputStream+extensions.swift */; };
+		703932C01CC5A70C00B51845 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704D91F41CBF49DD0097E38B /* Utils.swift */; };
+		703932C11CC5A71400B51845 /* SwiftyCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 704D91E51CBF48760097E38B /* SwiftyCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		703932C81CC5A8A500B51845 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 703932C51CC5A8A500B51845 /* Info.plist */; };
+		703932CA1CC5A8B500B51845 /* DiskLRUCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703932C41CC5A8A500B51845 /* DiskLRUCacheTests.swift */; };
+		703932CB1CC5A8B500B51845 /* LinkedDictionaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703932C61CC5A8A500B51845 /* LinkedDictionaryTests.swift */; };
+		703932CC1CC5A90B00B51845 /* DiskLRUCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703932C41CC5A8A500B51845 /* DiskLRUCacheTests.swift */; };
+		703932CD1CC5A90B00B51845 /* LinkedDictionaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703932C61CC5A8A500B51845 /* LinkedDictionaryTests.swift */; };
+		703932DB1CC5B1C700B51845 /* CacheEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704D91EC1CBF49DD0097E38B /* CacheEntry.swift */; };
+		703932DC1CC5B1C700B51845 /* StreamReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704D91ED1CBF49DD0097E38B /* StreamReader.swift */; };
+		703932DD1CC5B1C700B51845 /* DiskLRUCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704D91EE1CBF49DD0097E38B /* DiskLRUCache.swift */; };
+		703932DE1CC5B1C700B51845 /* DiskLRUCacheError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704D91EF1CBF49DD0097E38B /* DiskLRUCacheError.swift */; };
+		703932DF1CC5B1C700B51845 /* CacheEntryEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704D91F01CBF49DD0097E38B /* CacheEntryEditor.swift */; };
+		703932E01CC5B1C700B51845 /* CacheEntrySnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704D91F11CBF49DD0097E38B /* CacheEntrySnapshot.swift */; };
+		703932E11CC5B1C700B51845 /* LinkedDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704D91F21CBF49DD0097E38B /* LinkedDictionary.swift */; };
+		703932E21CC5B1C700B51845 /* NSOutputStream+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704D91F31CBF49DD0097E38B /* NSOutputStream+extensions.swift */; };
+		703932E31CC5B1C700B51845 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704D91F41CBF49DD0097E38B /* Utils.swift */; };
+		703932E41CC5B1CE00B51845 /* SwiftyCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 704D91E51CBF48760097E38B /* SwiftyCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		703932F21CC5B29200B51845 /* CacheEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704D91EC1CBF49DD0097E38B /* CacheEntry.swift */; };
+		703932F31CC5B29200B51845 /* StreamReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704D91ED1CBF49DD0097E38B /* StreamReader.swift */; };
+		703932F41CC5B29200B51845 /* DiskLRUCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704D91EE1CBF49DD0097E38B /* DiskLRUCache.swift */; };
+		703932F51CC5B29200B51845 /* DiskLRUCacheError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704D91EF1CBF49DD0097E38B /* DiskLRUCacheError.swift */; };
+		703932F61CC5B29200B51845 /* CacheEntryEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704D91F01CBF49DD0097E38B /* CacheEntryEditor.swift */; };
+		703932F71CC5B29200B51845 /* CacheEntrySnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704D91F11CBF49DD0097E38B /* CacheEntrySnapshot.swift */; };
+		703932F81CC5B29200B51845 /* LinkedDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704D91F21CBF49DD0097E38B /* LinkedDictionary.swift */; };
+		703932F91CC5B29200B51845 /* NSOutputStream+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704D91F31CBF49DD0097E38B /* NSOutputStream+extensions.swift */; };
+		703932FA1CC5B29200B51845 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704D91F41CBF49DD0097E38B /* Utils.swift */; };
+		703932FB1CC5B29C00B51845 /* SwiftyCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 704D91E51CBF48760097E38B /* SwiftyCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		703933051CC5B32400B51845 /* SwiftyCache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 703932D31CC5B0A000B51845 /* SwiftyCache.framework */; };
+		7039330B1CC5B36800B51845 /* DiskLRUCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703932C41CC5A8A500B51845 /* DiskLRUCacheTests.swift */; };
+		7039330C1CC5B36800B51845 /* LinkedDictionaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703932C61CC5A8A500B51845 /* LinkedDictionaryTests.swift */; };
 		704D91D21CBF46940097E38B /* SwiftyCache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 704D91C71CBF46940097E38B /* SwiftyCache.framework */; };
 		704D91F51CBF49DD0097E38B /* CacheEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704D91EC1CBF49DD0097E38B /* CacheEntry.swift */; };
 		704D91F61CBF49DD0097E38B /* StreamReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704D91ED1CBF49DD0097E38B /* StreamReader.swift */; };
@@ -18,11 +57,23 @@
 		704D91FC1CBF49DD0097E38B /* NSOutputStream+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704D91F31CBF49DD0097E38B /* NSOutputStream+extensions.swift */; };
 		704D91FD1CBF49DD0097E38B /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704D91F41CBF49DD0097E38B /* Utils.swift */; };
 		704D92021CBF4B2C0097E38B /* SwiftyCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 704D91E51CBF48760097E38B /* SwiftyCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		704D92031CBF4B4D0097E38B /* DiskLRUCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704D91FE1CBF49FC0097E38B /* DiskLRUCacheTests.swift */; };
-		704D92041CBF4B4D0097E38B /* LinkedDictionaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704D91FF1CBF49FC0097E38B /* LinkedDictionaryTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		703932A31CC59B9300B51845 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 704D91BE1CBF46940097E38B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 703932971CC59B9300B51845;
+			remoteInfo = "SwiftyCache-OSX";
+		};
+		703933061CC5B32400B51845 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 704D91BE1CBF46940097E38B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 703932D21CC5B0A000B51845;
+			remoteInfo = "SwiftyCache-tvOS";
+		};
 		704D91D31CBF46940097E38B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 704D91BE1CBF46940097E38B /* Project object */;
@@ -34,11 +85,18 @@
 
 /* Begin PBXFileReference section */
 		702484691CC39CB700C10A1B /* iOS_SwiftyCache.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = iOS_SwiftyCache.playground; path = Examples/iOS_SwiftyCache.playground; sourceTree = "<group>"; };
+		703932981CC59B9300B51845 /* SwiftyCache.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftyCache.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		703932A11CC59B9300B51845 /* SwiftyCacheTests-OSX.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SwiftyCacheTests-OSX.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		703932C41CC5A8A500B51845 /* DiskLRUCacheTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiskLRUCacheTests.swift; path = Tests/DiskLRUCacheTests.swift; sourceTree = "<group>"; };
+		703932C51CC5A8A500B51845 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Tests/Info.plist; sourceTree = "<group>"; };
+		703932C61CC5A8A500B51845 /* LinkedDictionaryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LinkedDictionaryTests.swift; path = Tests/LinkedDictionaryTests.swift; sourceTree = "<group>"; };
+		703932D31CC5B0A000B51845 /* SwiftyCache.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftyCache.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		703932EA1CC5B24700B51845 /* SwiftyCache.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftyCache.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		703933001CC5B32400B51845 /* SwiftyCacheTests-tvOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SwiftyCacheTests-tvOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		704D91C71CBF46940097E38B /* SwiftyCache.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftyCache.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		704D91D11CBF46940097E38B /* SwiftyCacheTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftyCacheTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		704D91D11CBF46940097E38B /* SwiftyCacheTests-iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SwiftyCacheTests-iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		704D91E41CBF48760097E38B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Source/Info.plist; sourceTree = "<group>"; };
 		704D91E51CBF48760097E38B /* SwiftyCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SwiftyCache.h; path = Source/SwiftyCache.h; sourceTree = "<group>"; };
-		704D91E81CBF488A0097E38B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Tests/Info.plist; sourceTree = "<group>"; };
 		704D91EC1CBF49DD0097E38B /* CacheEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CacheEntry.swift; path = Source/CacheEntry.swift; sourceTree = "<group>"; };
 		704D91ED1CBF49DD0097E38B /* StreamReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StreamReader.swift; path = Source/StreamReader.swift; sourceTree = "<group>"; };
 		704D91EE1CBF49DD0097E38B /* DiskLRUCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiskLRUCache.swift; path = Source/DiskLRUCache.swift; sourceTree = "<group>"; };
@@ -48,11 +106,46 @@
 		704D91F21CBF49DD0097E38B /* LinkedDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LinkedDictionary.swift; path = Source/LinkedDictionary.swift; sourceTree = "<group>"; };
 		704D91F31CBF49DD0097E38B /* NSOutputStream+extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSOutputStream+extensions.swift"; path = "Source/NSOutputStream+extensions.swift"; sourceTree = "<group>"; };
 		704D91F41CBF49DD0097E38B /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utils.swift; path = Source/Utils.swift; sourceTree = "<group>"; };
-		704D91FE1CBF49FC0097E38B /* DiskLRUCacheTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiskLRUCacheTests.swift; path = Tests/DiskLRUCacheTests.swift; sourceTree = "<group>"; };
-		704D91FF1CBF49FC0097E38B /* LinkedDictionaryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LinkedDictionaryTests.swift; path = Tests/LinkedDictionaryTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		703932941CC59B9300B51845 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7039329E1CC59B9300B51845 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				703932A21CC59B9300B51845 /* SwiftyCache.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		703932CF1CC5B0A000B51845 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		703932E61CC5B24700B51845 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		703932FD1CC5B32400B51845 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				703933051CC5B32400B51845 /* SwiftyCache.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		704D91C31CBF46940097E38B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -85,7 +178,12 @@
 			isa = PBXGroup;
 			children = (
 				704D91C71CBF46940097E38B /* SwiftyCache.framework */,
-				704D91D11CBF46940097E38B /* SwiftyCacheTests.xctest */,
+				704D91D11CBF46940097E38B /* SwiftyCacheTests-iOS.xctest */,
+				703932981CC59B9300B51845 /* SwiftyCache.framework */,
+				703932A11CC59B9300B51845 /* SwiftyCacheTests-OSX.xctest */,
+				703932D31CC5B0A000B51845 /* SwiftyCache.framework */,
+				703932EA1CC5B24700B51845 /* SwiftyCache.framework */,
+				703933001CC5B32400B51845 /* SwiftyCacheTests-tvOS.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -111,9 +209,9 @@
 		704D91E31CBF48550097E38B /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				704D91FE1CBF49FC0097E38B /* DiskLRUCacheTests.swift */,
-				704D91FF1CBF49FC0097E38B /* LinkedDictionaryTests.swift */,
-				704D91E81CBF488A0097E38B /* Info.plist */,
+				703932C41CC5A8A500B51845 /* DiskLRUCacheTests.swift */,
+				703932C61CC5A8A500B51845 /* LinkedDictionaryTests.swift */,
+				703932C51CC5A8A500B51845 /* Info.plist */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -121,6 +219,30 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		703932951CC59B9300B51845 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				703932C11CC5A71400B51845 /* SwiftyCache.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		703932D01CC5B0A000B51845 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				703932E41CC5B1CE00B51845 /* SwiftyCache.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		703932E71CC5B24700B51845 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				703932FB1CC5B29C00B51845 /* SwiftyCache.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		704D91C41CBF46940097E38B /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -132,9 +254,99 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		704D91C61CBF46940097E38B /* SwiftyCache */ = {
+		703932971CC59B9300B51845 /* SwiftyCache-OSX */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 704D91DB1CBF46940097E38B /* Build configuration list for PBXNativeTarget "SwiftyCache" */;
+			buildConfigurationList = 703932A91CC59B9300B51845 /* Build configuration list for PBXNativeTarget "SwiftyCache-OSX" */;
+			buildPhases = (
+				703932931CC59B9300B51845 /* Sources */,
+				703932941CC59B9300B51845 /* Frameworks */,
+				703932951CC59B9300B51845 /* Headers */,
+				703932961CC59B9300B51845 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SwiftyCache-OSX";
+			productName = "SwiftyCache-OSX";
+			productReference = 703932981CC59B9300B51845 /* SwiftyCache.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		703932A01CC59B9300B51845 /* SwiftyCacheTests-OSX */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 703932AC1CC59B9300B51845 /* Build configuration list for PBXNativeTarget "SwiftyCacheTests-OSX" */;
+			buildPhases = (
+				7039329D1CC59B9300B51845 /* Sources */,
+				7039329E1CC59B9300B51845 /* Frameworks */,
+				7039329F1CC59B9300B51845 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				703932A41CC59B9300B51845 /* PBXTargetDependency */,
+			);
+			name = "SwiftyCacheTests-OSX";
+			productName = "SwiftyCache-OSXTests";
+			productReference = 703932A11CC59B9300B51845 /* SwiftyCacheTests-OSX.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		703932D21CC5B0A000B51845 /* SwiftyCache-tvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 703932D81CC5B0A000B51845 /* Build configuration list for PBXNativeTarget "SwiftyCache-tvOS" */;
+			buildPhases = (
+				703932CE1CC5B0A000B51845 /* Sources */,
+				703932CF1CC5B0A000B51845 /* Frameworks */,
+				703932D01CC5B0A000B51845 /* Headers */,
+				703932D11CC5B0A000B51845 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SwiftyCache-tvOS";
+			productName = "SwiftyCache-tvOS";
+			productReference = 703932D31CC5B0A000B51845 /* SwiftyCache.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		703932E91CC5B24700B51845 /* SwiftyCache-watchOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 703932EF1CC5B24700B51845 /* Build configuration list for PBXNativeTarget "SwiftyCache-watchOS" */;
+			buildPhases = (
+				703932E51CC5B24700B51845 /* Sources */,
+				703932E61CC5B24700B51845 /* Frameworks */,
+				703932E71CC5B24700B51845 /* Headers */,
+				703932E81CC5B24700B51845 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SwiftyCache-watchOS";
+			productName = "SwiftyCache-watchOS";
+			productReference = 703932EA1CC5B24700B51845 /* SwiftyCache.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		703932FF1CC5B32400B51845 /* SwiftyCacheTests-tvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 703933081CC5B32400B51845 /* Build configuration list for PBXNativeTarget "SwiftyCacheTests-tvOS" */;
+			buildPhases = (
+				703932FC1CC5B32400B51845 /* Sources */,
+				703932FD1CC5B32400B51845 /* Frameworks */,
+				703932FE1CC5B32400B51845 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				703933071CC5B32400B51845 /* PBXTargetDependency */,
+			);
+			name = "SwiftyCacheTests-tvOS";
+			productName = "SwiftyCacheTests-tvOS";
+			productReference = 703933001CC5B32400B51845 /* SwiftyCacheTests-tvOS.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		704D91C61CBF46940097E38B /* SwiftyCache-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 704D91DB1CBF46940097E38B /* Build configuration list for PBXNativeTarget "SwiftyCache-iOS" */;
 			buildPhases = (
 				704D91C21CBF46940097E38B /* Sources */,
 				704D91C31CBF46940097E38B /* Frameworks */,
@@ -145,14 +357,14 @@
 			);
 			dependencies = (
 			);
-			name = SwiftyCache;
+			name = "SwiftyCache-iOS";
 			productName = SwiftyCache;
 			productReference = 704D91C71CBF46940097E38B /* SwiftyCache.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		704D91D01CBF46940097E38B /* SwiftyCacheTests */ = {
+		704D91D01CBF46940097E38B /* SwiftyCacheTests-iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 704D91DE1CBF46940097E38B /* Build configuration list for PBXNativeTarget "SwiftyCacheTests" */;
+			buildConfigurationList = 704D91DE1CBF46940097E38B /* Build configuration list for PBXNativeTarget "SwiftyCacheTests-iOS" */;
 			buildPhases = (
 				704D91CD1CBF46940097E38B /* Sources */,
 				704D91CE1CBF46940097E38B /* Frameworks */,
@@ -163,9 +375,9 @@
 			dependencies = (
 				704D91D41CBF46940097E38B /* PBXTargetDependency */,
 			);
-			name = SwiftyCacheTests;
+			name = "SwiftyCacheTests-iOS";
 			productName = SwiftyCacheTests;
-			productReference = 704D91D11CBF46940097E38B /* SwiftyCacheTests.xctest */;
+			productReference = 704D91D11CBF46940097E38B /* SwiftyCacheTests-iOS.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -178,6 +390,21 @@
 				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = SwiftyCache;
 				TargetAttributes = {
+					703932971CC59B9300B51845 = {
+						CreatedOnToolsVersion = 7.3;
+					};
+					703932A01CC59B9300B51845 = {
+						CreatedOnToolsVersion = 7.3;
+					};
+					703932D21CC5B0A000B51845 = {
+						CreatedOnToolsVersion = 7.3;
+					};
+					703932E91CC5B24700B51845 = {
+						CreatedOnToolsVersion = 7.3;
+					};
+					703932FF1CC5B32400B51845 = {
+						CreatedOnToolsVersion = 7.3;
+					};
 					704D91C61CBF46940097E38B = {
 						CreatedOnToolsVersion = 7.3;
 					};
@@ -198,17 +425,58 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				704D91C61CBF46940097E38B /* SwiftyCache */,
-				704D91D01CBF46940097E38B /* SwiftyCacheTests */,
+				704D91C61CBF46940097E38B /* SwiftyCache-iOS */,
+				704D91D01CBF46940097E38B /* SwiftyCacheTests-iOS */,
+				703932971CC59B9300B51845 /* SwiftyCache-OSX */,
+				703932A01CC59B9300B51845 /* SwiftyCacheTests-OSX */,
+				703932D21CC5B0A000B51845 /* SwiftyCache-tvOS */,
+				703932FF1CC5B32400B51845 /* SwiftyCacheTests-tvOS */,
+				703932E91CC5B24700B51845 /* SwiftyCache-watchOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		703932961CC59B9300B51845 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7039329F1CC59B9300B51845 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		703932D11CC5B0A000B51845 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		703932E81CC5B24700B51845 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		703932FE1CC5B32400B51845 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		704D91C51CBF46940097E38B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				703932C81CC5A8A500B51845 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -222,6 +490,72 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		703932931CC59B9300B51845 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				703932B81CC5A70C00B51845 /* CacheEntry.swift in Sources */,
+				703932B91CC5A70C00B51845 /* StreamReader.swift in Sources */,
+				703932BA1CC5A70C00B51845 /* DiskLRUCache.swift in Sources */,
+				703932BB1CC5A70C00B51845 /* DiskLRUCacheError.swift in Sources */,
+				703932BC1CC5A70C00B51845 /* CacheEntryEditor.swift in Sources */,
+				703932BD1CC5A70C00B51845 /* CacheEntrySnapshot.swift in Sources */,
+				703932BE1CC5A70C00B51845 /* LinkedDictionary.swift in Sources */,
+				703932BF1CC5A70C00B51845 /* NSOutputStream+extensions.swift in Sources */,
+				703932C01CC5A70C00B51845 /* Utils.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7039329D1CC59B9300B51845 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				703932CA1CC5A8B500B51845 /* DiskLRUCacheTests.swift in Sources */,
+				703932CB1CC5A8B500B51845 /* LinkedDictionaryTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		703932CE1CC5B0A000B51845 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				703932DB1CC5B1C700B51845 /* CacheEntry.swift in Sources */,
+				703932DC1CC5B1C700B51845 /* StreamReader.swift in Sources */,
+				703932DD1CC5B1C700B51845 /* DiskLRUCache.swift in Sources */,
+				703932DE1CC5B1C700B51845 /* DiskLRUCacheError.swift in Sources */,
+				703932DF1CC5B1C700B51845 /* CacheEntryEditor.swift in Sources */,
+				703932E01CC5B1C700B51845 /* CacheEntrySnapshot.swift in Sources */,
+				703932E11CC5B1C700B51845 /* LinkedDictionary.swift in Sources */,
+				703932E21CC5B1C700B51845 /* NSOutputStream+extensions.swift in Sources */,
+				703932E31CC5B1C700B51845 /* Utils.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		703932E51CC5B24700B51845 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				703932F21CC5B29200B51845 /* CacheEntry.swift in Sources */,
+				703932F31CC5B29200B51845 /* StreamReader.swift in Sources */,
+				703932F41CC5B29200B51845 /* DiskLRUCache.swift in Sources */,
+				703932F51CC5B29200B51845 /* DiskLRUCacheError.swift in Sources */,
+				703932F61CC5B29200B51845 /* CacheEntryEditor.swift in Sources */,
+				703932F71CC5B29200B51845 /* CacheEntrySnapshot.swift in Sources */,
+				703932F81CC5B29200B51845 /* LinkedDictionary.swift in Sources */,
+				703932F91CC5B29200B51845 /* NSOutputStream+extensions.swift in Sources */,
+				703932FA1CC5B29200B51845 /* Utils.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		703932FC1CC5B32400B51845 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7039330B1CC5B36800B51845 /* DiskLRUCacheTests.swift in Sources */,
+				7039330C1CC5B36800B51845 /* LinkedDictionaryTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		704D91C21CBF46940097E38B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -242,22 +576,204 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				704D92031CBF4B4D0097E38B /* DiskLRUCacheTests.swift in Sources */,
-				704D92041CBF4B4D0097E38B /* LinkedDictionaryTests.swift in Sources */,
+				703932CC1CC5A90B00B51845 /* DiskLRUCacheTests.swift in Sources */,
+				703932CD1CC5A90B00B51845 /* LinkedDictionaryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		703932A41CC59B9300B51845 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 703932971CC59B9300B51845 /* SwiftyCache-OSX */;
+			targetProxy = 703932A31CC59B9300B51845 /* PBXContainerItemProxy */;
+		};
+		703933071CC5B32400B51845 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 703932D21CC5B0A000B51845 /* SwiftyCache-tvOS */;
+			targetProxy = 703933061CC5B32400B51845 /* PBXContainerItemProxy */;
+		};
 		704D91D41CBF46940097E38B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 704D91C61CBF46940097E38B /* SwiftyCache */;
+			target = 704D91C61CBF46940097E38B /* SwiftyCache-iOS */;
 			targetProxy = 704D91D31CBF46940097E38B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		703932AA1CC59B9300B51845 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = Source/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.github.swiftycache.SwiftyCache-OSX";
+				PRODUCT_NAME = SwiftyCache;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		703932AB1CC59B9300B51845 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = Source/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.github.swiftycache.SwiftyCache-OSX";
+				PRODUCT_NAME = SwiftyCache;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		703932AD1CC59B9300B51845 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.github.swiftycache.SwiftyCache-OSXTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		703932AE1CC59B9300B51845 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.github.swiftycache.SwiftyCache-OSXTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		703932D91CC5B0A000B51845 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Source/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.github.swiftycache.SwiftyCache-tvOS";
+				PRODUCT_NAME = SwiftyCache;
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.2;
+			};
+			name = Debug;
+		};
+		703932DA1CC5B0A000B51845 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Source/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.github.swiftycache.SwiftyCache-tvOS";
+				PRODUCT_NAME = SwiftyCache;
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.2;
+			};
+			name = Release;
+		};
+		703932F01CC5B24700B51845 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Source/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.github.swiftycache.SwiftyCache-watchOS";
+				PRODUCT_NAME = SwiftyCache;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Debug;
+		};
+		703932F11CC5B24700B51845 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Source/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.github.swiftycache.SwiftyCache-watchOS";
+				PRODUCT_NAME = SwiftyCache;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Release;
+		};
+		703933091CC5B32400B51845 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.github.swiftycache.SwiftyCacheTests-tvOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TVOS_DEPLOYMENT_TARGET = 9.2;
+			};
+			name = Debug;
+		};
+		7039330A1CC5B32400B51845 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.github.swiftycache.SwiftyCacheTests-tvOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TVOS_DEPLOYMENT_TARGET = 9.2;
+			};
+			name = Release;
+		};
 		704D91D91CBF46940097E38B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -297,6 +813,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -340,6 +857,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -362,9 +880,10 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.swiftycache.SwiftyCache;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = SwiftyCache;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -381,8 +900,9 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.swiftycache.SwiftyCache;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = SwiftyCache;
 				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -409,6 +929,48 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		703932A91CC59B9300B51845 /* Build configuration list for PBXNativeTarget "SwiftyCache-OSX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				703932AA1CC59B9300B51845 /* Debug */,
+				703932AB1CC59B9300B51845 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		703932AC1CC59B9300B51845 /* Build configuration list for PBXNativeTarget "SwiftyCacheTests-OSX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				703932AD1CC59B9300B51845 /* Debug */,
+				703932AE1CC59B9300B51845 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		703932D81CC5B0A000B51845 /* Build configuration list for PBXNativeTarget "SwiftyCache-tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				703932D91CC5B0A000B51845 /* Debug */,
+				703932DA1CC5B0A000B51845 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		703932EF1CC5B24700B51845 /* Build configuration list for PBXNativeTarget "SwiftyCache-watchOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				703932F01CC5B24700B51845 /* Debug */,
+				703932F11CC5B24700B51845 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		703933081CC5B32400B51845 /* Build configuration list for PBXNativeTarget "SwiftyCacheTests-tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				703933091CC5B32400B51845 /* Debug */,
+				7039330A1CC5B32400B51845 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		704D91C11CBF46940097E38B /* Build configuration list for PBXProject "SwiftyCache" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -418,7 +980,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		704D91DB1CBF46940097E38B /* Build configuration list for PBXNativeTarget "SwiftyCache" */ = {
+		704D91DB1CBF46940097E38B /* Build configuration list for PBXNativeTarget "SwiftyCache-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				704D91DC1CBF46940097E38B /* Debug */,
@@ -427,7 +989,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		704D91DE1CBF46940097E38B /* Build configuration list for PBXNativeTarget "SwiftyCacheTests" */ = {
+		704D91DE1CBF46940097E38B /* Build configuration list for PBXNativeTarget "SwiftyCacheTests-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				704D91DF1CBF46940097E38B /* Debug */,
