@@ -2,8 +2,6 @@ SwiftyCache
 ==============
 <p align="center">
 
-<a href="https://travis-ci.org/SwiftyCache/SwiftyCache"><img src="https://img.shields.io/travis/SwiftyCache/SwiftyCache/master.svg"></a>
-
 <a href="http://cocoadocs.org/docsets/SwiftyCache"><img src="https://img.shields.io/cocoapods/v/SwiftyCache.svg?style=flat"></a>
 
 <a href="https://raw.githubusercontent.com/SwiftyCache/SwiftyCache/master/LICENSE"><img src="https://img.shields.io/cocoapods/l/SwiftyCache.svg?style=flat"></a>
