@@ -1,5 +1,16 @@
 SwiftyCache
 ==============
+<p align="center">
+
+<a href="https://travis-ci.org/SwiftyCache/SwiftyCache"><img src="https://img.shields.io/travis/SwiftyCache/SwiftyCache/master.svg"></a>
+
+<a href="http://cocoadocs.org/docsets/SwiftyCache"><img src="https://img.shields.io/cocoapods/v/SwiftyCache.svg?style=flat"></a>
+
+<a href="https://raw.githubusercontent.com/SwiftyCache/SwiftyCache/master/LICENSE"><img src="https://img.shields.io/cocoapods/l/SwiftyCache.svg?style=flat"></a>
+
+<a href="http://cocoadocs.org/docsets/SwiftyCache"><img src="https://img.shields.io/cocoapods/p/SwiftyCache.svg?style=flat"></a>
+
+</p>
 
 SwiftyCache is a journal-based disk LRU cache library that reimplements the Java
 library [DiskLruCache](https://github.com/JakeWharton/DiskLruCache) in Swift 2.2.
