@@ -1,7 +1,26 @@
 language: objective-c
 os: osx
 osx_image: xcode7.3
-xcode_sdk: iphonesimulator9.0
 
-script: 'sh run-tests.sh'
-
+env:
+  matrix:
+    - TEST_TYPE=iOS
+    - TEST_TYPE=OSX
+    - TEST_TYPE=tvOS
+before_install:
+- |
+    gem install xcpretty -N --no-ri --no-rdoc
+script:
+- |
+    if [ "$TEST_TYPE" = OSX ]; then
+      set -o pipefail
+      xcodebuild clean test -workspace SwiftyCache.xcworkspace -scheme SwiftyCache-OSX -sdk macosx -enableCodeCoverage YES | xcpretty
+    elif [ "$TEST_TYPE" = tvOS ]; then
+      set -o pipefail
+      xcodebuild clean test -workspace SwiftyCache.xcworkspace -scheme SwiftyCache-tvOS -destination "platform=tvOS Simulator,name=Apple TV 1080p" -enableCodeCoverage YES | xcpretty
+    fi
+after_success:
+- |
+    if [ "$TEST_TYPE" = iOS ] || [ "$TEST_TYPE" = OSX ] || [ "$TEST_TYPE" = tvOS ]; then
+      bash <(curl -s https://codecov.io/bash)
+    fi
