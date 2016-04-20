@@ -57,6 +57,7 @@
 		704D91FC1CBF49DD0097E38B /* NSOutputStream+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704D91F31CBF49DD0097E38B /* NSOutputStream+extensions.swift */; };
 		704D91FD1CBF49DD0097E38B /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704D91F41CBF49DD0097E38B /* Utils.swift */; };
 		704D92021CBF4B2C0097E38B /* SwiftyCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 704D91E51CBF48760097E38B /* SwiftyCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		70CA48C11CC719A000973C50 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 70CA48BF1CC719A000973C50 /* LICENSE.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +107,8 @@
 		704D91F21CBF49DD0097E38B /* LinkedDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LinkedDictionary.swift; path = Source/LinkedDictionary.swift; sourceTree = "<group>"; };
 		704D91F31CBF49DD0097E38B /* NSOutputStream+extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSOutputStream+extensions.swift"; path = "Source/NSOutputStream+extensions.swift"; sourceTree = "<group>"; };
 		704D91F41CBF49DD0097E38B /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utils.swift; path = Source/Utils.swift; sourceTree = "<group>"; };
+		70CA48BF1CC719A000973C50 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		70CA48C01CC719A000973C50 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +174,8 @@
 				704D91E31CBF48550097E38B /* Tests */,
 				704D91C81CBF46940097E38B /* Products */,
 				702484691CC39CB700C10A1B /* iOS_SwiftyCache.playground */,
+				70CA48C01CC719A000973C50 /* README.md */,
+				70CA48BF1CC719A000973C50 /* LICENSE.txt */,
 			);
 			sourceTree = "<group>";
 		};
@@ -476,6 +481,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				70CA48C11CC719A000973C50 /* LICENSE.txt in Resources */,
 				703932C81CC5A8A500B51845 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -954,6 +960,7 @@
 				703932DA1CC5B0A000B51845 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		703932EF1CC5B24700B51845 /* Build configuration list for PBXNativeTarget "SwiftyCache-watchOS" */ = {
 			isa = XCConfigurationList;
@@ -962,6 +969,7 @@
 				703932F11CC5B24700B51845 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		703933081CC5B32400B51845 /* Build configuration list for PBXNativeTarget "SwiftyCacheTests-tvOS" */ = {
 			isa = XCConfigurationList;
@@ -970,6 +978,7 @@
 				7039330A1CC5B32400B51845 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		704D91C11CBF46940097E38B /* Build configuration list for PBXProject "SwiftyCache" */ = {
 			isa = XCConfigurationList;
