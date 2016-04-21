@@ -57,6 +57,7 @@
 		704D91FC1CBF49DD0097E38B /* NSOutputStream+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704D91F31CBF49DD0097E38B /* NSOutputStream+extensions.swift */; };
 		704D91FD1CBF49DD0097E38B /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704D91F41CBF49DD0097E38B /* Utils.swift */; };
 		704D92021CBF4B2C0097E38B /* SwiftyCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 704D91E51CBF48760097E38B /* SwiftyCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7073E1C91CC8B77400AD0776 /* SwiftyCache.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 7073E1C81CC8B77400AD0776 /* SwiftyCache.podspec */; };
 		70CA48C11CC719A000973C50 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 70CA48BF1CC719A000973C50 /* LICENSE.txt */; };
 /* End PBXBuildFile section */
 
@@ -107,6 +108,7 @@
 		704D91F21CBF49DD0097E38B /* LinkedDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LinkedDictionary.swift; path = Source/LinkedDictionary.swift; sourceTree = "<group>"; };
 		704D91F31CBF49DD0097E38B /* NSOutputStream+extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSOutputStream+extensions.swift"; path = "Source/NSOutputStream+extensions.swift"; sourceTree = "<group>"; };
 		704D91F41CBF49DD0097E38B /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utils.swift; path = Source/Utils.swift; sourceTree = "<group>"; };
+		7073E1C81CC8B77400AD0776 /* SwiftyCache.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SwiftyCache.podspec; sourceTree = "<group>"; };
 		70CA48BF1CC719A000973C50 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		70CA48C01CC719A000973C50 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -176,6 +178,7 @@
 				702484691CC39CB700C10A1B /* iOS_SwiftyCache.playground */,
 				70CA48C01CC719A000973C50 /* README.md */,
 				70CA48BF1CC719A000973C50 /* LICENSE.txt */,
+				7073E1C81CC8B77400AD0776 /* SwiftyCache.podspec */,
 			);
 			sourceTree = "<group>";
 		};
@@ -481,6 +484,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7073E1C91CC8B77400AD0776 /* SwiftyCache.podspec in Resources */,
 				70CA48C11CC719A000973C50 /* LICENSE.txt in Resources */,
 				703932C81CC5A8A500B51845 /* Info.plist in Resources */,
 			);
