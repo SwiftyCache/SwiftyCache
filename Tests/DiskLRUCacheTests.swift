@@ -27,6 +27,8 @@ private let VERSION_1 = "1"
 private let VALUE_COUNT = 2
 private let CACHE_VERSION = 100
 
+private let WAIT_TIME: NSTimeInterval = 1.0
+
 class DiskLRUCacheTests: XCTestCase {
     
     private var cacheDir: String!
@@ -183,7 +185,7 @@ class DiskLRUCacheTests: XCTestCase {
             expectation.fulfill()
         }
         
-        self.waitForExpectationsWithTimeout(0.5, handler: nil)
+        self.waitForExpectationsWithTimeout(WAIT_TIME, handler: nil)
     }
     
     func assertValidKey(key: String) {
@@ -201,7 +203,7 @@ class DiskLRUCacheTests: XCTestCase {
             expectation.fulfill()
         }
         
-        self.waitForExpectationsWithTimeout(0.5, handler: nil)
+        self.waitForExpectationsWithTimeout(WAIT_TIME, handler: nil)
     }
     
     func testValidateKey() {
@@ -251,7 +253,7 @@ class DiskLRUCacheTests: XCTestCase {
             XCTAssertNil(snapshot)
             expectation.fulfill()
         }
-        self.waitForExpectationsWithTimeout(0.5, handler: nil)
+        self.waitForExpectationsWithTimeout(WAIT_TIME, handler: nil)
     }
     
     func assertSuccessOnSetDataForKey(key: String, value0: String, value1: String) {
@@ -265,7 +267,7 @@ class DiskLRUCacheTests: XCTestCase {
             XCTAssertNil(error, "should not be here, failed to setData:forKey \(key), error: \(error)")
             expectationSetData.fulfill()
         }
-        self.waitForExpectationsWithTimeout(0.5, handler: nil)
+        self.waitForExpectationsWithTimeout(WAIT_TIME, handler: nil)
     }
     
     func assertErrorOnSetDataForKey(key: String, value0: String, value1: String) {
@@ -281,7 +283,7 @@ class DiskLRUCacheTests: XCTestCase {
             expectation.fulfill()
         }
         
-        self.waitForExpectationsWithTimeout(0.5, handler: nil)
+        self.waitForExpectationsWithTimeout(WAIT_TIME, handler: nil)
     }
 
     func assertSuccessOnSetPartialDataForKey(key: String, value: String, index: Int, cache diskCache: DiskLRUCache) {
@@ -292,7 +294,7 @@ class DiskLRUCacheTests: XCTestCase {
             expectationSetData.fulfill()
         }
         
-        self.waitForExpectationsWithTimeout(0.5, handler: nil)
+        self.waitForExpectationsWithTimeout(WAIT_TIME, handler: nil)
     }
     
     func assertErrorOnSetPartialDataForKey(key: String, value: String, index: Int, cache diskCache: DiskLRUCache) {
@@ -304,7 +306,7 @@ class DiskLRUCacheTests: XCTestCase {
             expectation.fulfill()
         }
         
-        self.waitForExpectationsWithTimeout(0.5, handler: nil)
+        self.waitForExpectationsWithTimeout(WAIT_TIME, handler: nil)
     }
 
     
@@ -325,7 +327,7 @@ class DiskLRUCacheTests: XCTestCase {
             expectation.fulfill()
         }
         
-        self.waitForExpectationsWithTimeout(0.5, handler: nil)
+        self.waitForExpectationsWithTimeout(WAIT_TIME, handler: nil)
         
         assertFileNotExists(self.cacheDir)
         XCTAssertTrue(self.cache.isClosed())
@@ -345,7 +347,7 @@ class DiskLRUCacheTests: XCTestCase {
             expectation.fulfill()
         }
         
-        self.waitForExpectationsWithTimeout(0.5, handler: nil)
+        self.waitForExpectationsWithTimeout(WAIT_TIME, handler: nil)
     }
     
     func assertOnGetSnapshotForKey(key: String, value0: String, value1: String, cache diskCache: DiskLRUCache) -> CacheEntrySnapshot? {
@@ -365,7 +367,7 @@ class DiskLRUCacheTests: XCTestCase {
             
             expectationGetData.fulfill()
         }
-        self.waitForExpectationsWithTimeout(0.5, handler: nil)
+        self.waitForExpectationsWithTimeout(WAIT_TIME, handler: nil)
         return ss
     }
     
@@ -382,7 +384,7 @@ class DiskLRUCacheTests: XCTestCase {
             expectationClose.fulfill()
         }
         
-        self.waitForExpectationsWithTimeout(0.5, handler: nil)
+        self.waitForExpectationsWithTimeout(WAIT_TIME, handler: nil)
         
         XCTAssertTrue(diskCache.isClosed())
     }
