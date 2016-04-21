@@ -27,7 +27,7 @@ private let VERSION_1 = "1"
 private let VALUE_COUNT = 2
 private let CACHE_VERSION = 100
 
-private let WAIT_TIME: NSTimeInterval = 1.0
+private let WAIT_TIME: NSTimeInterval = 3.0
 
 class DiskLRUCacheTests: XCTestCase {
     
