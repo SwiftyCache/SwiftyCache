@@ -4,9 +4,9 @@ SwiftyCache
 
 <a href="https://travis-ci.org/SwiftyCache/SwiftyCache"><img src="https://img.shields.io/travis/SwiftyCache/SwiftyCache/master.svg"></a>
 
-<a href="http://cocoadocs.org/docsets/SwiftyCache"><img src="https://img.shields.io/cocoapods/v/SwiftyCache.svg?style=flat"></a>
+<a href="https://github.com/Carthage/Carthage/"><img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat"></a>
 
-<a href="https://raw.githubusercontent.com/SwiftyCache/SwiftyCache/master/LICENSE.txt"><img src="https://img.shields.io/cocoapods/l/SwiftyCache.svg?style=flat"></a>
+<a href="http://cocoadocs.org/docsets/SwiftyCache"><img src="https://img.shields.io/cocoapods/v/SwiftyCache.svg?style=flat"></a>
 
 <a href="http://cocoadocs.org/docsets/SwiftyCache"><img src="https://img.shields.io/cocoapods/p/SwiftyCache.svg?style=flat"></a>
 
@@ -100,6 +100,27 @@ target 'MyApp' do
 	pod 'SwiftyCache', '~> 0.9'
 end
 ```
+
+### Carthage
+
+
+Please install Carthage if it is not available on your Mac. Visit [https://github.com/Carthage/Carthage](https://github.com/Carthage/Carthage) for details.
+
+Add the following line in your `Cartfile`:
+
+``` ogdl
+github "SwiftyCache/SwiftyCache" ~> 0.9
+```
+
+And run the following command to build SwiftyCache:
+
+``` bash
+$ carthage update
+
+```
+
+Then integrate the framework into your Xcode project manually following the steps [here](https://github.com/Carthage/Carthage/#getting-started).
+
 
 ## License
 
