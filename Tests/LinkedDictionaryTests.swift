@@ -65,7 +65,11 @@ class LinkedDictionaryTests: XCTestCase {
         super.setUp()
         
         self.counter = Counter()
-        self.dic = LinkedDictionary<Int, Str>(dummyKey: 0, dummyValue: Str(str: "dummy", counter: self.counter), initialCapacity: 10, accessOrder: true)
+        self.dic = createDic(accessOrder: true);
+    }
+    
+    private func createDic(accessOrder accessOrder: Bool) -> LinkedDictionary<Int, Str> {
+        return LinkedDictionary<Int, Str>(dummyKey: 0, dummyValue: Str(str: "dummy", counter: self.counter), initialCapacity: 10, accessOrder: accessOrder)
     }
     
     func deinitDic() {
@@ -78,7 +82,57 @@ class LinkedDictionaryTests: XCTestCase {
         super.tearDown()
     }
 
-    func testLinkedDic() {
+    func assertRemovedEldestEntry(key key: Int, value: String) {
+        let (key1, value1) = self.dic.removeEldestEntry()!
+        XCTAssertEqual(key, key1)
+        XCTAssertEqual(value, value1.str)
+    }
+
+    func assertEldestEntry(key key: Int, value: String) {
+        let (key1, value1) = self.dic.getEldestEntry()!
+        XCTAssertEqual(key, key1)
+        XCTAssertEqual(value, value1.str)
+    }
+    
+    func testOrder() {
+        self.dic = self.createDic(accessOrder: false)
+        
+        self.dic.updateValue(Str(str: "1", counter: self.counter), forKey: 1)
+        self.dic.updateValue(Str(str: "2", counter: self.counter), forKey: 2)
+        self.dic.updateValue(Str(str: "3", counter: self.counter), forKey: 3)
+        
+        //access 1
+        self.dic.touchKey(1)
+        
+        assertEldestEntry(key: 1, value: "1")
+        
+        assertRemovedEldestEntry(key: 1, value: "1")
+        assertRemovedEldestEntry(key: 2, value: "2")
+        assertRemovedEldestEntry(key: 3, value: "3")
+        XCTAssertNil(self.dic.getEldestEntry())
+        XCTAssertNil(self.dic.removeEldestEntry())
+        
+        
+        self.dic = self.createDic(accessOrder: true)
+        
+        self.dic.updateValue(Str(str: "1", counter: self.counter), forKey: 1)
+        self.dic.updateValue(Str(str: "2", counter: self.counter), forKey: 2)
+        self.dic.updateValue(Str(str: "3", counter: self.counter), forKey: 3)
+        
+        //access 1
+        self.dic.touchKey(1)
+        
+        assertEldestEntry(key: 2, value: "2")
+        
+        assertRemovedEldestEntry(key: 2, value: "2")
+        assertRemovedEldestEntry(key: 3, value: "3")
+        assertRemovedEldestEntry(key: 1, value: "1")
+        XCTAssertNil(self.dic.getEldestEntry())
+        XCTAssertNil(self.dic.removeEldestEntry())
+
+    }
+    
+    func testLinkedDictionaryWithAccessOrder() {
         dic.updateValue(Str(str: "1", counter: self.counter), forKey: 1)
         var old1 = dic.updateValue(Str(str: "new1", counter: self.counter), forKey: 1)
         XCTAssertEqual("1", old1!.str)
