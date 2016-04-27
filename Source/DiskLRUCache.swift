@@ -54,9 +54,9 @@ public class DiskLRUCache {
     
     private let cacheSerialQueue : dispatch_queue_t
     
-    private var redundantOpCount: Int = 0
+    private(set) var redundantOperationCountInJournal: Int = 0
     
-    private var redundantOpCompactThreshold = DEFAULT_REDUNDANT_OPERATIONS_COMPACT_THRESHOLD
+    private(set) var redundantOperationCompactThreshold = DEFAULT_REDUNDANT_OPERATIONS_COMPACT_THRESHOLD
     
     /**
     * To differentiate between old and current snapshots, each entry is given
@@ -231,7 +231,7 @@ public class DiskLRUCache {
      
      - returns: The cache is closed or not.
      */
-    public func isClosed() -> Bool {
+    public var isClosed: Bool {
         var closed = true
         dispatch_sync(self.cacheSerialQueue) {
             closed = self.journalWriter == nil
@@ -242,7 +242,7 @@ public class DiskLRUCache {
     // MARK: internal implementation
     
     deinit {
-        if (isClosed()) {
+        if (self.isClosed) {
             return
         } else {
             NSLog("[deinit] closing DiskLRUCache in \(self.cacheDir)")
@@ -368,7 +368,7 @@ public class DiskLRUCache {
             }
         }
         
-        self.redundantOpCount = lineCount - self.lruEntries.count()
+        self.redundantOperationCountInJournal = lineCount - self.lruEntries.count()
         // If we ended on a truncated line, rebuild the journal before appending to it.
         if (reader.hasUnterminatedLine()) {
             NSLog("[readJournal] journal not ended with NL, so rebuild the journal ...")
@@ -648,7 +648,7 @@ public class DiskLRUCache {
             }
         }
 
-        self.redundantOpCount += 1
+        self.redundantOperationCountInJournal += 1
         entry.currentEditor = nil
         if (entry.readable || success) {
             entry.readable = true
@@ -672,7 +672,7 @@ public class DiskLRUCache {
     * and eliminate at least 2000 ops.
     */
     private func journalRebuildRequired() -> Bool {
-        return redundantOpCount >= redundantOpCompactThreshold && self.redundantOpCount >= self.lruEntries.count()
+        return self.redundantOperationCountInJournal >= self.redundantOperationCompactThreshold && self.redundantOperationCountInJournal >= self.lruEntries.count()
     }
     
     /**
@@ -701,7 +701,7 @@ public class DiskLRUCache {
             entry.lengths[i] = 0
         }
     
-        self.redundantOpCount += 1
+        self.redundantOperationCountInJournal += 1
         try self.journalWriter!.IA_write(REMOVE + " " + key + NL)
         self.lruEntries.removeValueForKey(key)
     
@@ -720,7 +720,7 @@ public class DiskLRUCache {
         try trimToSize()
         if (journalRebuildRequired()) {
             try rebuildJournal()
-            self.redundantOpCount = 0
+            self.redundantOperationCountInJournal = 0
         }
     }
     
@@ -895,7 +895,7 @@ public class DiskLRUCache {
             
             return nil
         } else {
-            redundantOpCount += 1;
+            self.redundantOperationCountInJournal += 1;
             try journalWriter?.IA_write(READ + " " + key + NL);
             if (journalRebuildRequired()) {
                 self.asyncCleanup()
@@ -939,18 +939,9 @@ public class DiskLRUCache {
         try self.syncCommitEditor(editor)
     }
     
-    func getRedundantOperationCountInJournal() -> Int {
-        return self.redundantOpCount
-    }
-    
-    
-    func getRedundantOperationsCompactThreshold() -> Int {
-        return self.redundantOpCompactThreshold
-    }
-    
     func setRedundantOpCompactThreshold(threshold: Int) {
         precondition(threshold > 10)
-        self.redundantOpCompactThreshold = threshold
+        self.redundantOperationCompactThreshold = threshold
     }
 
 }

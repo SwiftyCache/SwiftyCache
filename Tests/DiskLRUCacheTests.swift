@@ -333,7 +333,7 @@ class DiskLRUCacheTests: XCTestCase {
         self.waitForExpectationsWithTimeout(WAIT_TIME, handler: nil)
         
         assertFileNotExists(self.cacheDir)
-        XCTAssertTrue(self.cache.isClosed())
+        XCTAssertTrue(self.cache.isClosed)
     }
     
     func assertErrorOnSetPartialDataForNewKey(key: String, value: String, index: Int, cache diskCache: DiskLRUCache) {
@@ -380,7 +380,7 @@ class DiskLRUCacheTests: XCTestCase {
     }
     
     func assertSuccessOnCloseCache(diskCache: DiskLRUCache) {
-        XCTAssertFalse(diskCache.isClosed())
+        XCTAssertFalse(diskCache.isClosed)
         let expectationClose = self.expectationWithDescription("cache closed")
         
         diskCache.close { (error: NSError?) in
@@ -390,7 +390,7 @@ class DiskLRUCacheTests: XCTestCase {
         
         self.waitForExpectationsWithTimeout(WAIT_TIME, handler: nil)
         
-        XCTAssertTrue(diskCache.isClosed())
+        XCTAssertTrue(diskCache.isClosed)
     }
     
     func testWriteAndReadEntry() {
@@ -791,7 +791,7 @@ class DiskLRUCacheTests: XCTestCase {
                 break
             }
             
-            if (self.cache.getRedundantOperationCountInJournal() > self.cache.getRedundantOperationsCompactThreshold()) {
+            if (self.cache.redundantOperationCountInJournal > self.cache.redundantOperationCompactThreshold) {
                 XCTFail()
                 break
             }
@@ -820,7 +820,7 @@ class DiskLRUCacheTests: XCTestCase {
                 break
             }
             
-            if (self.cache.getRedundantOperationCountInJournal() > self.cache.getRedundantOperationsCompactThreshold()) {
+            if (self.cache.redundantOperationCountInJournal > self.cache.redundantOperationCompactThreshold) {
                 XCTFail()
                 break
             }
@@ -854,7 +854,7 @@ class DiskLRUCacheTests: XCTestCase {
                 break
             }
             
-            if (self.cache.getRedundantOperationCountInJournal() > self.cache.getRedundantOperationsCompactThreshold()) {
+            if (self.cache.redundantOperationCountInJournal > self.cache.redundantOperationCompactThreshold) {
                 XCTFail()
                 break
             }
@@ -889,7 +889,7 @@ class DiskLRUCacheTests: XCTestCase {
                 break
             }
             
-            if (self.cache.getRedundantOperationCountInJournal() > self.cache.getRedundantOperationsCompactThreshold()) {
+            if (self.cache.redundantOperationCountInJournal > self.cache.redundantOperationCompactThreshold) {
                 XCTFail()
                 break
             }
@@ -1010,7 +1010,7 @@ class DiskLRUCacheTests: XCTestCase {
         
         assertSuccessOnDeleteCache()
         assertFileNotExists(self.cacheDir)
-        XCTAssertTrue(self.cache.isClosed())
+        XCTAssertTrue(self.cache.isClosed)
     }
 
     
@@ -1070,7 +1070,7 @@ class DiskLRUCacheTests: XCTestCase {
         assertNilSnapshotForKey("d")
         
         assertSuccessOnDeleteCache()
-        XCTAssertTrue(self.cache.isClosed())
+        XCTAssertTrue(self.cache.isClosed)
         assertFileNotExists(self.cacheDir)
     }
     
