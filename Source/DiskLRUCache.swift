@@ -40,7 +40,7 @@ private let DEFAULT_REDUNDANT_OPERATIONS_COMPACT_THRESHOLD = 2000
 
 public class DiskLRUCache {
 
-    // MARK: internal properties
+    // MARK: private properties
     private let cacheDir: String
     
     private let journalPath: String
@@ -259,7 +259,7 @@ public class DiskLRUCache {
      
      - throws: error if it failed to close the cache or any other unhandled error, e.g. an IO error happened when the cache was pruning old entries in the background.
      */
-    internal func closeNow() throws {
+    func closeNow() throws {
         NSLog("[close] cache dir: \(self.cacheDir)")
         
         var exception: NSError?
@@ -324,11 +324,11 @@ public class DiskLRUCache {
     }
     
     
-    internal func getCleanFilePathForKey(key: String, index: Int) -> String {
+    func getCleanFilePathForKey(key: String, index: Int) -> String {
         return (self.cacheDir as NSString).stringByAppendingPathComponent(key + ".\(index)")
     }
     
-    internal func getDirtyFilePathForKey(key: String, index: Int) -> String {
+    func getDirtyFilePathForKey(key: String, index: Int) -> String {
         return (self.cacheDir as NSString).stringByAppendingPathComponent(key + ".\(index).tmp")
     }
 
@@ -939,16 +939,16 @@ public class DiskLRUCache {
         try self.syncCommitEditor(editor)
     }
     
-    internal func getRedundantOperationCountInJournal() -> Int {
+    func getRedundantOperationCountInJournal() -> Int {
         return self.redundantOpCount
     }
     
     
-    internal func getRedundantOperationsCompactThreshold() -> Int {
+    func getRedundantOperationsCompactThreshold() -> Int {
         return self.redundantOpCompactThreshold
     }
     
-    internal func setRedundantOpCompactThreshold(threshold: Int) {
+    func setRedundantOpCompactThreshold(threshold: Int) {
         precondition(threshold > 10)
         self.redundantOpCompactThreshold = threshold
     }

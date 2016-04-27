@@ -45,7 +45,7 @@ class CacheEntry {
         self.lengths = lens
     }
     
-    internal func getLengths() -> String {
+    func getLengths() -> String {
         return self.lengths.map({"\($0)"}).joinWithSeparator(" ")
     }
         

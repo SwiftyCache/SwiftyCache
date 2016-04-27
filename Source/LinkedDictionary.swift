@@ -44,7 +44,7 @@ class LinkedEntry<Key, Value> {
     
 }
 
-internal struct LinkedDictionaryGenerator<Key, Value> : GeneratorType {
+struct LinkedDictionaryGenerator<Key, Value> : GeneratorType {
     
     private unowned let dummyHeader: LinkedEntry<Key, Value>
     private unowned var nextResult: LinkedEntry<Key, Value>
@@ -67,7 +67,7 @@ internal struct LinkedDictionaryGenerator<Key, Value> : GeneratorType {
 }
 
 
-internal class LinkedDictionary<Key: Hashable, Value>: SequenceType {
+class LinkedDictionary<Key: Hashable, Value>: SequenceType {
     typealias LinkedKV = LinkedEntry<Key, Value>
     
     /**
@@ -104,7 +104,7 @@ internal class LinkedDictionary<Key: Hashable, Value>: SequenceType {
         }
     }
     
-    internal func touchKey(key: Key) -> Bool {
+    func touchKey(key: Key) -> Bool {
         if let _ = get(key) {
             return true
         } else {
@@ -208,7 +208,7 @@ internal class LinkedDictionary<Key: Hashable, Value>: SequenceType {
         e.prev = nil
     }
     
-    internal func generate() -> LinkedDictionaryGenerator<Key, Value> {
+    func generate() -> LinkedDictionaryGenerator<Key, Value> {
         return LinkedDictionaryGenerator(dummyHeader: self.header)
     }
 }
