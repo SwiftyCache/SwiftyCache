@@ -182,6 +182,7 @@ class DiskLRUCacheTests: XCTestCase {
                 return
             }
             XCTAssertEqual(error.localizedDescription, "Invalid key: \(invalidKey)")
+            XCTAssertEqual(error.code, DiskLRUCacheErrorCode.ErrorCodeBadFormat.rawValue)
             expectation.fulfill()
         }
         
@@ -280,6 +281,7 @@ class DiskLRUCacheTests: XCTestCase {
         diskCache.setData([strToNSData(value0), strToNSData(value1)], forKey: key) { (error: NSError?) in
             XCTAssertNotNil(error)
             XCTAssertEqual(error!.localizedDescription, "Failed to set value for key:\(key) index:0")
+            XCTAssertEqual(error!.code, DiskLRUCacheErrorCode.ErrorCodeIOException.rawValue)
             expectation.fulfill()
         }
         
@@ -303,6 +305,7 @@ class DiskLRUCacheTests: XCTestCase {
         diskCache.setPartialData([(strToNSData(value), index)], forExistingKey: key) { (error: NSError?) in
             XCTAssertNotNil(error)
             XCTAssertEqual(error!.localizedDescription, "Failed to set partial data for key:\(key) index:\(index)")
+            XCTAssertEqual(error!.code, DiskLRUCacheErrorCode.ErrorCodeIOException.rawValue)
             expectation.fulfill()
         }
         
@@ -344,6 +347,7 @@ class DiskLRUCacheTests: XCTestCase {
             }
             XCTAssertNotNil(error)
             XCTAssertEqual(error!.localizedDescription, "Newly created entry didn't create value for index: \(indexWithoutValue)")
+            XCTAssertEqual(error!.code, DiskLRUCacheErrorCode.ErrorCodeIllegalStateException.rawValue)
             expectation.fulfill()
         }
         

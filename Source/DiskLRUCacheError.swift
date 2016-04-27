@@ -21,12 +21,15 @@
 
 import Foundation
 
-public enum DiskLRUCacheError: ErrorType {
+enum DiskLRUCacheError: ErrorType {
     case IOException(desc: String)
     case BadFormat(desc: String)
     case IllegalStateException(desc: String)
 }
 
+/**
+ Error codes for NSError returned by the async methods in class DiskLRUCache like getSnapshotForKey.
+ */
 public enum DiskLRUCacheErrorCode: Int {
     case ErrorCodeIOException
     case ErrorCodeBadFormat
