@@ -38,6 +38,9 @@ private let READ = "READ"
 
 private let DEFAULT_REDUNDANT_OPERATIONS_COMPACT_THRESHOLD = 2000
 
+/**
+ A journal-based disk LRU cache, which reimplements the Java library DiskLruCache (https://github.com/JakeWharton/DiskLruCache) in Swift.
+ */
 public class DiskLRUCache {
 
     // MARK: private properties
