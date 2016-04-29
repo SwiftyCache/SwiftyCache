@@ -10,6 +10,8 @@ SwiftyCache
 
 <a href="http://cocoadocs.org/docsets/SwiftyCache"><img src="https://img.shields.io/cocoapods/p/SwiftyCache.svg?style=flat"></a>
 
+<img src="https://img.shields.io/badge/Swift-2.2-orange.svg">
+
 </p>
 
 SwiftyCache is a journal-based disk LRU cache library that reimplements the Java
